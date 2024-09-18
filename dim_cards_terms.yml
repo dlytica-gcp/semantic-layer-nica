@@ -1,0 +1,61 @@
+cubes:
+  - name: dim_cards_terms
+    sql_table: gold_dimensions.dim_cards_terms
+    data_source: default
+
+    joins: 
+      - name: dim_cards_account
+        sql: "{dim_cards_terms}.account_sk = {dim_cards_account.account_code_sk}"
+        relationship: one_to_one
+      - name: dim_cards_card
+        sql: "{dim_cards_terms}.customer_sk = {dim_cards_card.customer_sk}"
+        relationship: one_to_many
+      - name: dim_date
+        sql: "{dim_cards_terms}.ter_due_date_sk = {dim_date.date_sk}"
+        relationship: many_to_one
+
+    dimensions:
+      - name: term_sk
+        sql: term_sk
+        type: string
+        primaryKey: true
+      - name: account_sk
+        sql: account_sk
+        type: string
+      - name: ter_cycl_date
+        sql: ter_cycl_date
+        type: string
+      - name: ter_due_date
+        sql: ter_due_date
+        type: string
+      - name: ter_due_date_sk
+        sql: ter_due_date_sk
+        type: string
+      - name: ter_last_cycl_date
+        sql: ter_last_cycl_date
+        type: string
+      - name: ter_late_date
+        sql: ter_late_date
+        type: string
+      - name: ter_term_stat
+        sql: ter_term_stat
+        type: string
+      - name: due_amount
+        sql: ter_last_cycl_due_bala
+        type: number
+      - name: cif_id
+        sql: cif_id
+        type: string
+      - name: foracid
+        sql: foracid
+        type: string
+      - name: customer_sk
+        sql: customer_sk
+        type: string
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      

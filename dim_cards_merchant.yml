@@ -1,0 +1,123 @@
+cubes:
+  - name: dim_cards_merchant
+    sql_table: gold_dimensions.dim_cards_merchant
+    data_source: default
+
+    joins:
+      - name: dim_gam
+        sql: "{CUBE}.foracid_sk={dim_gam.foracid_sk}"
+        relationship: one_to_one
+
+    dimensions:
+      - name: merchant_code_sk
+        sql: merchant_code_sk
+        type: string
+        primaryKey: true
+
+      - name: merchant_identity
+        sql: mer_iden
+        type: string
+
+      - name: merchant_code
+        sql: mer_code
+        type: string
+
+      - name: merchant_name
+        sql: mer_corp_name
+        type: string
+      - name: currency
+        sql: mer_cur_code_refe
+        type: string
+
+      - name: mer_comm_effe_date
+        sql: mer_comm_effe_date
+        type: string
+
+      - name: mer_last_paym_date
+        sql: mer_last_paym_date
+        type: string
+
+      - name: mer_last_stat_date
+        sql: mer_last_stat_date
+        type: string
+
+      - name: mer_location
+        sql: mer_location
+        type: string
+
+      - name: cif_id
+        sql: cif_id
+        type: string
+
+      - name: account_number
+        sql: acc_numb
+        type: string
+
+      - name: foracid_sk
+        sql: foracid_sk
+        type: string
+
+      - name: merchant_status
+        sql: merchant_status
+        type: string
+
+      - name: company_type
+        sql: company_type
+        type: string
+
+      - name: mcc
+        sql: mcc
+        type: string
+      - name: activation_code
+        sql: mer_acti_code
+        type: time
+      - name: last_paym_date
+        sql: mer_last_paym_date
+        type: time
+      - name: mer_last_status_date
+        sql: mer_last_stat_date
+        type: time
+      - name: mer_crea_date
+        sql: from_iso8601_timestamp(mer_crea_date)
+        type: time
+      - name: merchant_since
+        sql: "day(now()-{CUBE.mer_crea_date})"
+        type: number
+      - name: days_since_last_transaction
+        sql: >
+          (
+            EXTRACT(
+              DAY FROM
+              (
+                NOW() - (
+                  SELECT MAX(aut_tran_date)
+                  FROM gold_fact.fact_cards_authorization cf
+                  WHERE cf.cif_id = {CUBE}.cif_id
+                )
+              )
+            )
+          )
+        type: number
+      - name: days_bet_acc_opn_mer_crea
+        sql: >
+          (
+            EXTRACT(
+              DAY FROM
+              (
+                {CUBE.mer_crea_date} - (
+                  SELECT acct_opn_date_date_part
+                  FROM gold_dimensions.dim_gam g
+                  WHERE g.foracid_sk = {CUBE}.foracid_sk
+                )
+              )
+            )
+          )
+        type: number
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started

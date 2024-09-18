@@ -1,0 +1,41 @@
+cubes:
+  - name: dim_indiv_relationship
+    sql_table: gold_dimensions.dim_indiv_relationship
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: indiv_relationship_sk
+        sql: indiv_relationship_sk
+        type: string
+        primaryKey: true
+
+      - name: relationship_id
+        sql: relationship_id
+        type: string
+
+      - name: cif_sk
+        sql: cif_sk
+        type: string
+
+      - name: cif_id
+        sql: cif_id
+        type: string
+
+      - name: name
+        sql: name
+        type: string
+
+      - name: relation
+        sql: relation
+        type: string
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

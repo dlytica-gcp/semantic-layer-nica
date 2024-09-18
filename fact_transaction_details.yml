@@ -1,0 +1,168 @@
+cubes:
+  - name: fact_transaction_details
+    sql_table: gold_fact.fact_transaction_details
+    data_source: default
+
+    joins:
+      - name: dim_customers
+        sql:  "{fact_transaction_detailsv2}.cif_sk = {dim_customers.cif_sk} AND {dim_customers.dbt_valid_to} IS NULL"
+        relationship: one_to_many
+      - name:  dim_date
+        sql:   "{fact_transaction_detailsv2}.tran_date_sk = {dim_date.date_sk}"
+        relationship: one_to_many
+      - name: dim_gam
+        sql:  "{fact_transaction_detailsv2}.acid_sk = {dim_gam.acid_sk} AND {dim_gam.dbt_valid_to} IS NULL"
+        relationship: one_to_many
+      - name: dim_branch
+        sql:  "{fact_transaction_detailsv2}.branch_sol_sk = {dim_branch.branch_sol_sk}"
+        relationship: one_to_many
+     
+    dimensions:
+      - name: cif_sk
+        sql: cif_sk
+        type: string
+     
+      - name: tran_date_sk
+        sql: tran_date_sk
+        type: string
+
+      - name: acid_sk
+        sql: acid_sk
+        type: string
+      
+      - name: transaction_key
+        sql: transaction_key
+        type: string 
+        primaryKey: true
+
+      - name: cif_id
+        sql: cif_id
+        type: string
+
+      - name: entry_user_id
+        sql: entry_user_id
+        type: string
+        
+      - name: tran_channel_type
+        sql: tran_channel_type
+        type: string
+
+      - name: pstd_flg
+        sql: pstd_flg
+        type: string
+
+      - name: tran_id
+        sql: tran_id
+        type: string
+      
+      - name: sys_part_tran_code
+        sql: sys_part_tran_code
+        type: string
+      
+
+      - name: tran_particular
+        sql: tran_particular
+        type: string
+
+      - name: tran_rmks
+        sql: tran_rmks
+        type: string
+
+      - name: tran_type
+        sql: tran_type
+        type: string
+
+      - name: tran_sub_type
+        sql: tran_sub_type
+        type: string
+
+      - name: part_tran_type
+        sql: part_tran_type
+        type: string
+
+      - name: tr_status
+        sql: tr_status
+        type: string
+
+      - name: branch_sol_sk
+        sql: branch_sol_sk
+        type: string
+
+      - name: lchg_user_id
+        sql: lchg_user_id
+        type: string
+
+      - name: updated_at
+        sql: updated_at
+        type: time
+
+      - name: tran_date_date_part
+        sql: tran_date_date_part
+        type: time
+
+      - name: tran_date_timestamp
+        sql: tran_date_timestamp
+        type: time
+
+      - name: lchg_time
+        sql: lchg_time
+        type: time
+
+      - name : tran_crncy_code
+        sql : tran_crncy_code
+        type : string
+      
+      - name : ref_crncy_code
+        sql : ref_crncy_code
+        type : string
+      
+      - name : del_flg
+        sql : del_flg
+        type : string
+      
+      - name: acct_balance
+        sql: acct_balance
+        type: string
+      
+    measures:
+
+      - name : ref_amt_sum
+        sql : ref_amt
+        type : sum
+
+      - name : tran_count
+        sql : tran_id
+        type : count
+
+#      - name : tran_amt_avg
+#        sql : tran_amt
+#        type : avg
+
+      - name : tran_amt_sum
+        sql : tran_amt
+        type : sum
+
+      - name : total_debit_tran_vol
+        sql: CASE WHEN del_flg = 'N' AND part_tran_type = 'D' THEN (CASE WHEN ref_crncy_code != 'NPR' THEN ref_amt ELSE tran_amt END) ELSE 0 END
+        type: sum
+      - name: total_credit_tran_vol
+        sql: CASE WHEN del_flg = 'N' AND part_tran_type = 'C' THEN (CASE WHEN ref_crncy_code != 'NPR' THEN ref_amt ELSE tran_amt END) ELSE 0 END
+        type: sum
+
+      - name : total_debit_tran_count
+        sql : tran_id
+        type : count
+        filters:
+          - sql : "{fact_transaction_detailsv2}.part_tran_type = 'D'"
+        
+      - name : total_credit_tran_count
+        sql : tran_id
+        type : count
+        filters:
+          - sql : "{fact_transaction_detailsv2}.part_tran_type = 'C'"
+
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

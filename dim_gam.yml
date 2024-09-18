@@ -1,0 +1,168 @@
+cubes:
+  - name: dim_gam
+    sql_table: gold_dimensions.dim_gam
+    data_source: default
+
+    joins:
+      - name: dim_product
+        sql:  "{dim_gam}.product_scheme_code_sk = {dim_product.product_scheme_code_sk}"
+        relationship: one_to_many
+      - name: dim_deposit_accounts
+        sql:  "{dim_gam}.foracid_sk = {dim_deposit_accounts.foracid_sk}"
+        relationship: one_to_one
+      - name: dim_loan_accounts_funded
+        sql:  "{dim_gam}.foracid_sk = {dim_loan_accounts_funded.foracid_sk}"
+        relationship: one_to_one
+      - name: dim_branch
+        sql:  "{dim_gam}.branch_sol_sk = {dim_branch.branch_sol_sk}"
+        relationship: one_to_one
+      - name: dim_customers
+        sql: "{dim_gam}.cif_sk = {dim_customers.cif_sk}"
+        relationship: one_to_one
+#      - name: dim_interest_rate
+#        sql: "{dim_gam}.acid_sk = {dim_interest_rate.acid_sk}"
+#        relationship: one_to_many
+
+    dimensions:
+      - name: foracid_sk
+        sql: foracid_sk
+        type: string
+
+      - name: acid_sk
+        sql: acid_sk
+        type: string
+        primaryKey: true
+
+      - name: foracid
+        sql: foracid
+        type: string
+
+      - name: acid
+        sql: acid
+        type: string
+
+      - name: cif_id
+        sql: cif_id
+        type: string
+
+      - name: cif_sk
+        sql: cif_sk
+        type: string
+
+      - name: acct_opn_date
+        sql: acct_opn_date
+        type: string
+
+      - name: last_transaction_date
+        sql: from_iso8601_timestamp(last_transaction_date)
+        type: time
+
+      - name: last_digital_transaction_date
+        type: time
+        sql: >
+              (
+                select max(tran_date_timestamp) as last_digital_txn_date
+                from gold_fact.fact_transaction_details
+                where foracid = {CUBE}.foracid and ENTRY_USER_ID='CDCI'
+                and PSTD_FLG='Y'
+              )
+
+      - name: last_branch_transaction_date
+        type: time
+        sql: >
+              (
+                select max(tran_date_timestamp) as last_branch_txn_date
+                from gold_fact.fact_transaction_details
+                where foracid = {CUBE}.foracid and ENTRY_USER_ID<>'CDCI'
+                and PSTD_FLG='Y'
+              )
+
+      - name: branch_sol_sk
+        sql: branch_sol_sk
+        type: string
+
+      - name: product_scheme_code_sk
+        sql: product_scheme_code_sk
+        type: string
+
+      - name: acct_crncy_code
+        sql: acct_crncy_code
+        type: string
+
+      - name: entity_cre_flg
+        sql: entity_cre_flg
+        type: string
+
+      - name: del_flg
+        sql: del_flg
+        type: string
+
+      - name: acct_cls_flg
+        sql: acct_cls_flg
+        type: string
+
+      - name: acct_cls_date
+        sql: acct_cls_date
+        type: string
+
+      - name: acct_name
+        sql: acct_name
+        type: string
+
+      - name: limit_b2kid
+        sql: limit_b2kid
+        type: string
+
+      - name: account_status
+        sql: account_status
+        type: string
+
+      - name: dbt_scd_id
+        sql: dbt_scd_id
+        type: string
+
+      - name: schm_type
+        sql: schm_type
+        type: string
+
+      - name: dbt_updated_at
+        sql: dbt_updated_at
+        type: time
+
+      - name: acct_opn_date_date_part
+        sql: acct_opn_date_date_part
+        type: time
+
+      - name: lchg_time
+        sql: lchg_time
+        type: time
+
+      - name: dbt_valid_from
+        sql: dbt_valid_from
+        type: time
+
+      - name: dbt_valid_to
+        sql: dbt_valid_to
+        type: time
+
+# derived
+      - name: days_since_last_customer_induced_transaction
+        type: number
+        sql: "day(now()-{CUBE.last_transaction_date})"
+
+      - name: days_since_last_digital_transaction
+        type: number
+        sql: "day(now()-{CUBE.last_digital_transaction_date})"
+
+      - name: days_since_last_branch_transaction
+        type: number
+        sql: "day(now()-{CUBE.last_branch_transaction_date})"
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

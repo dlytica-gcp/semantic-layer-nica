@@ -1,0 +1,66 @@
+cubes:
+  - name: cube_loan_funded_overdue_details
+    sql_table: gold_fact.fact_overdue_details
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: foracid_sk
+        sql: foracid_sk
+        type: string
+
+      - name: foracid
+        sql: foracid
+        type: string
+
+      - name: acid_sk
+        sql: acid_sk
+        type: string
+
+      - name: acid
+        sql: acid
+        type: string
+      
+      - name: demand_type
+        sql: demand_type
+        type: string
+
+      - name: demand_date
+        sql: demand_date
+        type: string
+
+      - name: last_adjustment_date
+        sql: last_adjustment_date
+        type: string
+
+      - name: demand_amount
+        sql: demand_amount
+        type: number
+
+      - name: adjustment_amount
+        sql: adjustment_amount
+        type: number
+
+      - name: overdue_amount
+        sql: overdue_amount
+        type: number
+
+    measures:
+      - name: total_principal_overdue
+        type: sum
+        sql: overdue_amount * CASE WHEN demand_type = 'Principal Demand' THEN 1 ELSE 0 END
+
+      - name: total_interest_overdue
+        type: sum
+        sql: overdue_amount * CASE WHEN demand_type = 'Interest Demand' THEN 1 ELSE 0 END
+
+      - name: total_penal_overdue
+        type: sum
+        sql: overdue_amount * CASE WHEN demand_type = 'Penal Demand' THEN 1 ELSE 0 END
+
+ 
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

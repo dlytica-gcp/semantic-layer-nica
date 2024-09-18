@@ -1,0 +1,279 @@
+cubes:
+  - name: dim_date
+    sql_table: gold_dimensions.dim_date
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: date_sk
+        sql: date_sk
+        type: string
+        primaryKey: true
+
+      - name: displaydate
+        sql: displaydate
+        type: string
+
+      - name: dayname
+        sql: dayname
+        type: string
+
+      - name: isweekday
+        sql: isweekday
+        type: string
+
+      - name: nepali_year
+        sql: nepali_year
+        type: string
+
+      - name: nepali_date
+        sql: nepali_date
+        type: string
+
+      - name: dayofmonth
+        sql: dayofmonth
+        type: number
+
+      - name: dayofquarter
+        sql: dayofquarter
+        type: number
+
+      - name: dayofweek
+        sql: dayofweek
+        type: number
+
+      - name: dayofweekinyear
+        sql: dayofweekinyear
+        type: number
+
+      - name: dayofyear
+        sql: dayofyear
+        type: number
+
+      - name: daysmonth
+        sql: daysmonth
+        type: number
+
+      - name: days_in_nepali_month
+        sql: days_in_nepali_month
+        type: number
+
+      - name: firstdayofmonth
+        sql: firstdayofmonth
+        type: string
+
+      - name: firstdayofquarter
+        sql: firstdayofquarter
+        type: string
+
+      - name: firstdayofyear
+        sql: firstdayofyear
+        type: string
+
+      - name: halfyear
+        sql: halfyear
+        type: number
+
+      - name: halfyearkey
+        sql: halfyearkey
+        type: string
+
+      - name: halfyearname
+        sql: halfyearname
+        type: string
+
+      - name: keynepalidate
+        sql: keynepalidate
+        type: number
+
+      - name: last_15_days
+        sql: last_15_days
+        type: string
+
+      - name: lastdayofmonth
+        sql: lastdayofmonth
+        type: string
+
+      - name: lastdayofquarter
+        sql: lastdayofquarter
+        type: string
+
+      - name: lastdayofyear
+        sql: lastdayofyear
+        type: string
+
+      - name: month
+        sql: month
+        type: number
+
+      - name: monthindex
+        sql: monthindex
+        type: number
+
+      - name: monthkey
+        sql: monthkey
+        type: number
+
+      - name: monthname
+        sql: monthname
+        type: string
+
+      - name: nepali_day
+        sql: nepali_day
+        type: number
+
+      - name: nepali_english_month_end_date
+        sql: nepali_english_month_end_date
+        type: string
+
+      - name: nepali_fiscal_year
+        sql: nepali_fiscal_year
+        type: string
+
+      - name: nepali_month_end_date
+        sql: nepali_month_end_date
+        type: string
+
+      - name: nepali_month_end_tag
+        sql: nepali_month_end_tag
+        type: string
+
+      - name: nepali_month_name
+        sql: nepali_month_name
+        type: string
+
+      - name: nepali_month_number
+        sql: nepali_month_number
+        type: number
+
+      - name: nepali_quarter
+        sql: nepali_quarter
+        type: string
+
+      - name: nepali_quarter_number
+        sql: nepali_quarter_number
+        type: number
+
+      - name: nepali_year_month
+        sql: nepali_year_month
+        type: string
+
+      - name: nepali_year_month_number
+        sql: nepali_year_month_number
+        type: number
+
+      - name: nepali_year_quarter
+        sql: nepali_year_quarter
+        type: string
+
+      - name: nepali_year_quarter_number
+        sql: nepali_year_quarter_number
+        type: number
+
+      - name: previousmonthend
+        sql: previousmonthend
+        type: string
+
+      - name: previous_nepali_month_end
+        sql: previous_nepali_month_end
+        type: string
+
+      - name: quarter
+        sql: quarter
+        type: number
+
+      - name: quarterindex
+        sql: quarterindex
+        type: string
+
+      - name: quarterkey
+        sql: quarterkey
+        type: number
+
+      - name: quartername
+        sql: quartername
+        type: string
+
+      - name: today
+        sql: today
+        type: string
+
+      - name: tillgctdate
+        sql: tillgctdate
+        type: string
+
+      - name: tillgctday
+        sql: tillgctday
+        type: string
+
+      - name: week
+        sql: week
+        type: string
+
+      - name: weekindex
+        sql: weekindex
+        type: number
+
+      - name: weekkey
+        sql: weekkey
+        type: number
+
+      - name: weekname
+        sql: weekname
+        type: string
+
+      - name: weekofmonth
+        sql: weekofmonth
+        type: string
+
+      - name: weekofquarter
+        sql: weekofquarter
+        type: number
+
+      - name: weekofyear
+        sql: weekofyear
+        type: number
+
+      - name: year
+        sql: year
+        type: number
+
+      - name: yearhalfyearname
+        sql: yearhalfyearname
+        type: string
+
+      - name: yearindex
+        sql: yearindex
+        type: number
+
+      - name: yearmonthname
+        sql: yearmonthname
+        type: string
+
+      - name: yearname
+        sql: yearname
+        type: string
+
+      - name: yearquartername
+        sql: yearquartername
+        type: string
+
+      - name: yearweekname
+        sql: yearweekname
+        type: string
+
+      - name: till_bank_day
+        sql: till_bank_day
+        type: string
+
+      - name: nepali_year_month_formatted
+        sql: CONCAT(SUBSTR(CAST(nepali_year_month_number AS VARCHAR), 1, 4), '/', SUBSTR(CAST(nepali_year_month_number AS VARCHAR), 5, 2), '-', nepali_month_name)
+        type: string
+      
+  #  measures: 
+      
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started

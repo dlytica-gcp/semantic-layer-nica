@@ -1,0 +1,93 @@
+cubes:
+  - name: dim_branch
+    sql_table: gold_dimensions.dim_branch
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: branch_sol_sk
+        sql: branch_sol_sk
+        type: string
+        primaryKey: true
+
+      - name: branch_sol_id
+        sql: branch_sol_id
+        type: string
+
+      - name: branch_open_date
+        sql: branch_open_date
+        type: string
+
+      - name: city_code
+        sql: city_code
+        type: string
+
+      - name: address1
+        sql: address1
+        type: string
+
+      - name: address2
+        sql: address2
+        type: string
+
+      - name: branch_code
+        sql: branch_code
+        type: string
+
+      - name: branch_description
+        sql: branch_description
+        type: string
+
+      - name: state_code
+        sql: state_code
+        type: string
+
+      - name: lchg_user_id
+        sql: lchg_user_id
+        type: string
+
+      - name: province_name
+        sql: province_name
+        type: string
+
+      - name: sub_provincial
+        sql: sub_provincial
+        type: string
+
+      - name: hub_name
+        sql: hub_name
+        type: string
+
+      - name: cluster_name
+        sql: cluster_name
+        type: string
+
+      - name: dbt_scd_id
+        sql: dbt_scd_id
+        type: string
+
+      - name: dbt_updated_at
+        sql: dbt_updated_at
+        type: time
+
+      - name: lchg_time
+        sql: lchg_time
+        type: time
+
+      - name: dbt_valid_from
+        sql: dbt_valid_from
+        type: time
+
+      - name: dbt_valid_to
+        sql: dbt_valid_to
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

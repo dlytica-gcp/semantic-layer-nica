@@ -1,0 +1,117 @@
+cubes:
+  - name: dim_loan_accounts_funded
+    sql_table: gold_dimensions.dim_loan_accounts_funded
+    data_source: default
+
+    joins: 
+      - name: dim_gam
+        sql:  "{dim_loan_accounts_funded}.foracid_sk = {dim_gam.foracid_sk}"
+        relationship: one_to_one
+
+    dimensions:
+      - name: foracid_sk
+        sql: foracid_sk
+        type: string
+        primaryKey: true
+
+      - name: foracid
+        sql: foracid
+        type: string
+
+      - name: facility
+        sql: facility
+        type: string
+
+      - name: ra_unit
+        sql: ra_unit
+        type: string
+
+      - name: nic_asia_product
+        sql: nic_asia_product
+        type: string
+
+      - name: limit_sanction_date
+        sql: from_iso8601_timestamp(last_transaction_date)
+        type: time
+
+      - name: limit_expiry_date
+        sql: from_iso8601_timestamp(last_transaction_date)
+        type: time
+
+      - name: limit_review_date
+        sql: from_iso8601_timestamp(last_transaction_date)
+        type: time
+
+      - name: multi_banking_code
+        sql: multi_banking_code
+        type: string
+
+      - name: sector_code
+        sql: sector_code
+        type: string
+
+      - name: sub_sector_code
+        sql: sub_sector_code
+        type: string
+
+      - name: group_name
+        sql: group_name
+        type: string
+
+      - name: groupid_code
+        sql: groupid_code
+        type: string
+
+      - name: categoryid
+        sql: categoryid
+        type: string
+
+      - name: currency
+        sql: currency
+        type: string
+
+      - name: riskgrade
+        sql: riskgrade
+        type: string
+
+      - name: internal_riskgrade
+        sql: internal_riskgrade
+        type: string
+
+      - name: base_l2
+        sql: base_l2
+        type: string
+
+      - name: emi_flag
+        sql: emi_flag
+        type: string
+      
+      - name: sanction_limit
+        sql: sanction_limit
+        type: number
+      
+      - name: drwng_power
+        sql: drwng_power
+        type: number
+
+# derived
+      - name: days_between_account_opening_and_loan_sanction
+        type: number
+        sql: "day({CUBE.limit_sanction_date}-{dim_gam.acct_opn_date_date_part})"
+
+      - name: limit_expiry_days_in
+        type: number
+        sql: "day(now()-{CUBE.limit_expiry_date})"
+      
+      - name: limit_review_days_in
+        type: number
+        sql: "day(now()-{CUBE.limit_review_date})"
+      
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

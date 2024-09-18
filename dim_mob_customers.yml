@@ -1,0 +1,153 @@
+cubes:
+  - name: dim_mob_customers
+    sql_table: gold_dimensions.dim_mob_customers
+    data_source: default
+
+    joins:
+      - name : dim_mob_application_user
+        sql: "{dim_mob_customers}.customer_id_sk = {dim_mob_application_user.customer_id_sk}"
+        relationship: one_to_one
+      - name : dim_mob_bank_account
+        sql: "{dim_mob_customers}.customer_id_sk = {dim_mob_bank_account.customer_id_sk}"
+        relationship: one_to_one
+      - name : dim_mob_customer_login
+        sql: "{dim_mob_customers}.customer_id_sk = {dim_mob_customer_login.customer_id_sk}"
+        relationship: one_to_one
+      - name : dim_gam
+        sql: "{CUBE.foracid_sk} = {dim_gam.foracid_sk}"
+        relationship: one_to_one
+      - name: fact_mob_transactions
+        sql: "{dim_mob_customers}.cbs_id = {fact_mob_transactions.cif_id}"
+        relationship: one_to_many
+      - name: dim_mob_profile
+        sql: "{dim_mob_profile}.profile_sk={dim_mob_customers}.profile_sk"
+        relationship: one_to_one
+
+
+    dimensions:
+      - name: id
+        sql: id
+        type: number
+        primary_key: true
+
+      - name: customer_id_sk
+        sql: customer_id_sk
+        type: string
+
+      - name: active
+        sql: active
+        type: string
+
+      - name: ac_holder
+        sql: ac_holder
+        type: string
+
+      - name: cbs_id
+        sql: cbs_id
+        type: string
+
+      - name: cif_sk
+        sql: cif_sk
+        type: string
+      - name: foracid_sk
+        sql: account_number_sk
+        type: string
+
+      - name: has_security_question
+        sql: has_security_question
+        type: string
+
+      - name: profile_sk
+        sql: profile_sk
+        type: string
+      - name: approved_date
+        sql: approved_date
+        type: string
+
+      - name: created_date
+        sql: created_date
+        type: string
+
+      - name: email_address
+        sql: email_address
+        type: string
+
+      - name: first_name
+        sql: first_name
+        type: string
+
+      - name: address
+        sql: address
+        type: string
+
+      - name: dbt_scd_id
+        sql: dbt_scd_id
+        type: string
+
+      - name: dbt_updated_at
+        sql: dbt_updated_at
+        type: string
+
+      - name: dbt_valid_from
+        sql: dbt_valid_from
+        type: string
+
+      - name: dbt_valid_to
+        sql: dbt_valid_to
+        type: string
+
+      - name: created_date
+        sql: created_date
+        type: time
+
+      - name: approved_date
+        sql: approved_date
+        type: time
+      - name: mobile_number
+        sql: mobile_number
+        type: string
+
+      - name: first_txn_date
+        sql: >
+          (
+            SELECT min(txn_date_timestamp) AS FIRST_TXN_DATE FROM GOLD_FACT.FACT_MOB_TRANSACTIONS WHERE CIF_ID={CUBE}.CBS_ID AND TXN_STATUS=1
+          )
+        type: time
+      - name: first_login_date
+        sql: >
+          (
+            SELECT c.first_login_date_date_part from gold_dimensions.dim_mob_customer_login c where c.customer_id_sk={CUBE.customer_id_sk} 
+          ) 
+        type: time
+
+      - name: mob_reg__time_from_acopen
+        sql: day({CUBE.created_date} - {dim_gam.acct_opn_date_date_part})
+        type: number
+      - name: first_login_from_creation
+        sql: day({CUBE.first_login_date}-{CUBE.created_date})
+        type: number
+      - name: first_txn_from_creation
+        sql: day({CUBE.first_txn_date}-{CUBE.created_date})
+        type: number
+      - name: days_bet_approved_created
+        sql: day({CUBE.approved_date} -{CUBE.created_date})
+        type: number
+      - name: blocked_since
+        sql: day(NOW()-{dim_mob_application_user.login_block_date})
+        type: number
+      - name: renew_since
+        sql: day(NOW() -{dim_mob_bank_account.renew_date})
+        type: number
+      - name: first_login_since
+        sql: day(NOW()-{CUBE.first_login_date})
+        type: number
+    measures:
+      - name: count
+        type: count
+
+      
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

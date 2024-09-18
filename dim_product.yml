@@ -1,0 +1,45 @@
+cubes:
+  - name: dim_product
+    sql_table: gold_dimensions.dim_product
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: product_scheme_code_sk
+        sql: product_scheme_code_sk
+        type: string
+        primaryKey: true
+
+      - name: product_scheme_code
+        sql: product_scheme_code
+        type: string
+
+      - name: product_scheme_type
+        sql: product_scheme_type
+        type: string
+
+      - name: product_scheme_description
+        sql: product_scheme_description
+        type: string
+
+      - name: product_scheme_category
+        sql: product_scheme_category
+        type: string
+
+      - name: product_scheme_sub_category
+        sql: product_scheme_sub_category
+        type: string
+
+      - name: updated_at
+        sql: updated_at
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

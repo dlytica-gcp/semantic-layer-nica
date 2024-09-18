@@ -1,0 +1,89 @@
+cubes:
+  - name: dim_deposit_accounts
+    sql_table: gold_dimensions.dim_deposit_accounts
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: foracid_sk
+        sql: foracid_sk
+        type: string
+        primaryKey: true
+
+      - name: foracid
+        sql: foracid
+        type: string
+
+      - name: dormant_status
+        sql: dormant_status
+        type: string
+
+      - name: dormant_date
+        sql: from_iso8601_timestamp(dormant_date)
+        type: time
+
+      - name: freeze_status
+        sql: freeze_status
+        type: string
+
+      - name: freeze_code
+        sql: freeze_code
+        type: string
+
+      - name: freeze_reason
+        sql: freeze_reason
+        type: string
+
+      - name: last_freeze_date
+        sql: from_iso8601_timestamp(last_freeze_date)
+        type: time
+
+      - name: last_unfreeze_date
+        sql: from_iso8601_timestamp(last_unfreeze_date)
+        type: time
+
+      - name: first_customer_induced_transaction_date
+        sql: first_customer_induced_transaction_date
+        type: time
+      
+      - name: minimum_balance
+        sql: minimum_balance
+        type: number
+
+      - name: available_amount
+        sql: available_amount
+        type: number
+# derived 
+      - name : days_since_dormant
+        type : number
+        sql : "day(now()-{CUBE.dormant_date})"
+      
+      - name : days_since_freeze
+        type : number
+        sql : "day(now()-{CUBE.last_freeze_date})"
+
+      - name : days_since_last_unfreeze
+        type : number
+        sql : "day(now()-{CUBE.last_unfreeze_date})"
+
+      - name: days_since_first_customer_induced_transaction
+        type : number
+        sql : "day(now()-{CUBE.first_customer_induced_transaction_date})"
+
+    measures:
+      - name: count
+        type: count
+
+      - name: minimum_balance_total
+        sql: minimum_balance
+        type: sum
+
+      - name: available_amount_total
+        sql: available_amount
+        type: sum
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

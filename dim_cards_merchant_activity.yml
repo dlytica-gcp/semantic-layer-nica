@@ -1,0 +1,30 @@
+cubes:
+  - name: dim_cards_merchant_activity
+    sql_table: gold_dimensions.dim_cards_merchant_activity
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: mac_code_sk
+        sql: mac_code_sk
+        type: string
+        primaryKey: true
+
+      - name: mac_labe
+        sql: mac_labe
+        type: string
+
+      - name: mac_iden
+        sql: mac_iden
+        type: string
+ 
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

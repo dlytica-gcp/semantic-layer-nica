@@ -1,0 +1,81 @@
+cubes:
+  - name: dim_cust_address
+    sql_table: gold_dimensions.dim_cust_address
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: address_sk
+        sql: address_sk
+        type: string
+        primaryKey: true
+
+      - name: address_id
+        sql: address_id
+        type: string
+
+      - name: address_type
+        sql: address_type
+        type: string
+
+      - name: address_line
+        sql: address_line
+        type: string
+
+      - name: country
+        sql: country
+        type: string
+
+      - name: province
+        sql: province
+        type: string
+
+      - name: city
+        sql: city
+        type: string
+
+      - name: is_preferred
+        sql: is_preferred
+        type: string
+
+      - name: is_active
+        sql: is_active
+        type: string
+
+      - name: cif_sk
+        sql: cif_sk
+        type: string
+
+      - name: dbt_scd_id
+        sql: dbt_scd_id
+        type: string
+
+      - name: updated_at
+        sql: updated_at
+        type: time
+
+      - name: dbt_updated_at
+        sql: dbt_updated_at
+        type: time
+
+      - name: tmdate
+        sql: tmdate
+        type: time
+
+      - name: dbt_valid_from
+        sql: dbt_valid_from
+        type: time
+
+      - name: dbt_valid_to
+        sql: dbt_valid_to
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

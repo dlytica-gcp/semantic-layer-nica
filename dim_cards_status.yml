@@ -1,0 +1,25 @@
+cubes:
+  - name: dim_cards_status
+    sql_table: gold_dimensions.dim_cards_status
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: card_status_sk
+        sql: card_status_sk
+        type: string
+        primaryKey: true
+
+      - name: cst_labe
+        sql: cst_labe
+        type: string
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

@@ -1,0 +1,29 @@
+cubes:
+  - name: dim_cards_transaction_code
+    sql_table: gold_dimensions.dim_cards_transaction_code
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: tco_code_sk
+        sql: tco_code_sk
+        type: string
+        primaryKey: true
+
+      - name: tco_labe
+        sql: tco_labe
+        type: string
+
+      - name: tco_merc_sign
+        sql: tco_merc_sign
+        type: string
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

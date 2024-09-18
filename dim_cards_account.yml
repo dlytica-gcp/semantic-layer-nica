@@ -1,0 +1,81 @@
+cubes:
+  - name: dim_cards_account
+    sql_table: gold_dimensions.dim_cards_account
+    data_source: default
+
+    joins:
+      - name: dim_cards_card
+        sql: "{dim_cards_card.account_code_sk} = {dim_cards_account.account_code_sk}"
+        relationship: one_to_many
+      - name: dim_branch
+        sql: "{dim_cards_account.branch_sol_sk}= {dim_branch.branch_sol_sk}"
+        relationship: one_to_one
+      - name: dim_cards_card
+        sql: "{dim_cards_account.customer_sk} = {dim_cards_card.customer_sk }"
+        relationship: one_to_one
+      - name: dim_gam
+        sql: "{dim_cards_account.foracid_sk} = {dim_gam.foracid_sk}"
+        relationship: one_to_one
+
+    dimensions:
+      - name: account_code_sk
+        sql: account_code_sk
+        type: string
+        primaryKey: true
+
+      - name: branch_sol_sk
+        sql: branch_sol_sk
+        type: string
+
+      - name: account_open_date
+        sql: acc_crea_date_date_part
+        type: time
+
+      - name: customer_sk
+        sql: customer_sk
+        type: string
+
+      - name: acc_effe_date
+        sql: acc_effe_date
+        type: string
+
+      - name: acc_last_tran_date
+        sql: acc_last_tran_date
+        type: string
+
+      - name: foracid_sk
+        sql: foracid_sk
+        type: string
+
+      - name: acc_paym_mode
+        sql: acc_paym_mode
+        type: string
+
+      - name: cif_id
+        sql: cif_id
+        type: string
+
+      - name: acc_crea_date_date_part
+        sql: acc_crea_date_date_part
+        type: time
+
+      - name: acc_effe_date_date_part
+        sql: acc_effe_date_date_part
+        type: time
+
+      - name: acc_last_tran_date_date_part
+        sql: acc_last_tran_date_date_part
+        type: time
+      
+      - name: account_number
+        sql: acc_numb
+        type: string
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

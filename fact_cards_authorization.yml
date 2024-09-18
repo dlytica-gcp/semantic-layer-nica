@@ -1,0 +1,107 @@
+cubes:
+  - name: fact_cards_authorization
+    sql_table: gold_fact.fact_cards_authorization
+    data_source: default
+
+    joins:
+      - name : dim_gam
+        sql: "{fact_cards_authorization}.foracid_sk = {dim_gam.foracid_sk}"
+        relationship: one_to_one
+      - name : dim_cards_status
+        sql: "{fact_cards_authorization}.card_status_sk = {dim_cards_status.card_status_sk}"
+        relationship: one_to_one
+      - name: dim_cards_card
+        sql: "{fact_cards_authorization}.card_sk = {dim_cards_card.card_sk}"
+        relationship: one_to_one  
+      - name: dim_cards_merchant_activity
+        sql: "{fact_cards_authorization}.aut_merc_type_f016 = {dim_cards_merchant_activity.mac_iden}"
+        relationship: one_to_one
+      - name: dim_date
+        sql: "{fact_cards_authorization}.date_sk = {dim_date.date_sk}"
+        relationship: one_to_one 
+    dimensions:
+      - name: foracid_sk
+        sql: foracid_sk
+        type: string
+      - name: year
+        sql: year
+        type: number
+      - name: month
+        sql: month
+        type: number
+      - name: day
+        sql: day
+        type: number
+      - name: aut_merc_type_f016
+        sql: aut_merc_type_f016
+        type: string      
+      - name: customer_sk
+        sql: customer_sk
+        type: string
+      - name: cif_id
+        sql: cif_id
+        type: string
+      - name: aut_resp_code_f039_2
+        sql: aut_resp_code_f039_2
+        type: string
+      - name: card_number
+        sql: aut_prim_acct_numb_f002 
+        type: string
+      - name: response_description
+        sql: are_labe
+        type: string
+
+      - name: cif_sk
+
+        sql: cif_sk
+        type: string
+
+      - name: transaction_sk
+        sql: transaction_sk
+        type: string
+        primaryKey: true
+
+      - name: date_sk
+        sql: date_sk
+        type: string
+
+      - name: card_sk
+        sql: card_sk
+        type: string
+
+      - name: tran_amt
+        sql: tran_amt
+        type: number
+
+      - name: card_status_sk
+        sql: card_status_sk
+        type: string
+
+      - name: payment_channel
+        sql: payment_channel
+        type: string
+
+      - name: aut_user
+        sql: aut_user
+        type: string
+
+      - name: aut_tran_date_time_f007
+        sql: aut_tran_date_time_f007
+        type: string
+
+      - name: aut_tran_date
+        sql: aut_tran_date
+        type: time
+
+    measures:
+      - name: total_transaction_amount
+        sql: tran_amt
+        type: sum
+      - name: total_transaction_count
+        sql: transaction_sk
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

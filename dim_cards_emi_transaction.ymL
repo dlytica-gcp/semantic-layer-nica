@@ -1,0 +1,60 @@
+cubes:
+  - name: dim_cards_emi_transaction
+    sql_table: gold_fact.dim_cards_emi_transaction
+    data_source: default
+
+    joins: 
+      - name: dim_gam
+        sql: ${dim_cards_emi_transaction}.foracid_sk = ${dim_gam}.foracid_sk
+        relationship: one_to_one
+
+      - name: dim_cards_account
+        sql: ${dim_cards_emi_transaction}.account_sk = ${dim_cards_account}.account_code_sk
+        relationship: one_to_one
+
+      - name: dim_cards_card
+        sql: ${dim_cards_emi_transaction}.card_sk = ${dim_cards_card}.card_sk
+        relationship: one_to_one
+
+    dimensions:
+      - name: etr_code_sk
+        sql: etr_code_sk
+        type: string
+        primaryKey: true
+
+      - name: account_sk
+        sql: account_sk
+        type: string
+
+      - name: foracid_sk
+        sql: foracid_sk
+        type: string
+
+      - name: card_sk
+        sql: card_sk
+        type: string
+
+      - name: etr_tran_date
+        sql: etr_tran_date
+        type: string
+      - name: etr_tran_numb
+        sql: etr_tran_numb
+  
+      - name: etr_tran_date_date_part
+        sql: etr_tran_date_date_part
+        type: time
+      - name: etr_tran_amou
+        sql: etr_tran_amou
+        type: number
+
+      - name: etr_inst_amou
+        sql: etr_inst_amou
+        type: number
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

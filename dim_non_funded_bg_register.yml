@@ -1,0 +1,83 @@
+cubes:
+  - name: dim_non_funded_bg_register
+    sql_table: gold_dimensions.dim_non_funded_bg_register
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: issue_date
+        sql: issue_date
+        type: string
+
+      - name: bg_srl_num
+        sql: bg_srl_num
+        type: string
+
+      - name: bg_type
+        sql: bg_type
+        type: string
+
+      - name: cif_id
+        sql: cif_id
+        type: string
+
+      - name: cif_sk
+        sql: cif_sk
+        type: string
+
+      - name: ra_unit
+        sql: ra_unit
+        type: string
+
+      - name: rm_code
+        sql: rm_code
+        type: string
+
+      - name: cust_name
+        sql: cust_name
+        type: string
+
+      - name: crncy_code
+        sql: crncy_code
+        type: string
+
+      - name: sol_id
+        sql: sol_id
+        type: string
+
+      - name: branch_sol_sk
+        sql: branch_sol_sk
+        type: string
+
+      - name: beneficiary_name
+        sql: beneficiary_name
+        type: string
+
+      - name: purpose_of_bg
+        sql: purpose_of_bg
+        type: string
+
+      - name: bg_expiry_date
+        sql: bg_expiry_date
+        type: string
+
+      - name: claim_expiry_date
+        sql: claim_expiry_date
+        type: string
+
+      - name: bg_status
+        sql: bg_status
+        type: string
+
+      - name: close_date
+        sql: close_date
+        type: string
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started

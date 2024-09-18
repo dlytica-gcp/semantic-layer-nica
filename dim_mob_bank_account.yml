@@ -1,0 +1,99 @@
+cubes:
+  - name: dim_mob_bank_account
+    sql_table: gold_dimensions.dim_mob_bank_account
+    data_source: default
+
+    joins: 
+      - name: dim_mob_application_user
+        sql: "{dim_mob_bank_account}.account_number = {dim_mob_application_user.account_number}"
+        relationship: one_to_one
+
+    dimensions:
+      - name: id
+        sql: id
+        type: number
+        primary_key: true
+
+      - name: bank_account_sk
+        sql: bank_account_sk
+        type: string
+
+      - name: account_number
+        sql: account_number
+        type: string
+
+      - name: customer_id_sk
+        sql: customer_id_sk
+        type: string
+      - name: account_number_sk
+        sql: account_number_sk
+        type: string
+
+      - name: account_owner_cbs_id
+        sql: account_owner_cbs_id
+        type: string
+
+      - name: cif_sk
+        sql: cif_sk
+        type: string
+
+      - name: added_date
+        sql: added_date
+        type: string
+
+      - name: account_holder_name
+        sql: account_holder_name
+        type: string
+
+      - name: branch_sol_sk
+        sql: branch_sol_sk
+        type: string
+
+      - name: expiry_date
+        sql: expiry_date
+        type: string
+
+      - name: renew_date
+        sql: renew_date
+        type: string
+
+      - name: txn_enabled
+        sql: txn_enabled
+        type: string
+
+      - name: dbt_scd_id
+        sql: dbt_scd_id
+        type: string
+
+      - name: dbt_updated_at
+        sql: dbt_updated_at
+        type: string
+
+      - name: dbt_valid_from
+        sql: dbt_valid_from
+        type: string
+
+      - name: dbt_valid_to
+        sql: dbt_valid_to
+        type: string
+
+      - name: added_date_date_part
+        sql: added_date_date_part
+        type: time
+
+      - name: expiry_date_date_part
+        sql: expiry_date_date_part
+        type: time
+
+      - name: renew_date_date_part
+        sql: renew_date_date_part
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

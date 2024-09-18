@@ -1,0 +1,70 @@
+cubes:
+  - name: dim_communications
+    sql_table: gold_dimensions.dim_communications
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: comm_sk
+        sql: comm_sk
+        type: string
+        primaryKey: true
+
+      - name: cif_id
+        sql: cif_id
+        type: string
+
+      - name: communication_type
+        sql: communication_type
+        type: string
+
+      - name: phoneno
+        sql: phoneno
+        type: string
+
+      - name: email
+        sql: email
+        type: string
+
+      - name: is_preferred
+        sql: is_preferred
+        type: string
+
+      - name: cif_sk
+        sql: cif_sk
+        type: string
+
+      - name: dbt_scd_id
+        sql: dbt_scd_id
+        type: string
+
+      - name: updated_at
+        sql: updated_at
+        type: time
+
+      - name: dbt_updated_at
+        sql: dbt_updated_at
+        type: time
+
+      - name: tmdate
+        sql: tmdate
+        type: time
+
+      - name: dbt_valid_from
+        sql: dbt_valid_from
+        type: time
+
+      - name: dbt_valid_to
+        sql: dbt_valid_to
+        type: time
+
+    measures:
+      - name: count_communications
+        type: count
+        sql: communication_id
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

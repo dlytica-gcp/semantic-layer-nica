@@ -1,0 +1,111 @@
+cubes:
+  - name: dim_qr_terminal
+    sql_table: gold_dimensions.dim_qr_terminal
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: terminal_sk
+        sql: terminal_sk
+        type: string
+
+      - name: terminal_details_id
+        sql: terminal_details_id
+        type: string
+
+      - name: terminal_name
+        sql: terminal_name
+        type: string
+
+      - name: merchant_sk
+        sql: merchant_sk
+        type: string
+
+      - name: merchant_pan_number
+        sql: merchant_pan_number
+        type: string
+
+      - name: created_date
+        sql: created_date
+        type: string
+
+      - name: modified_date
+        sql: modified_date
+        type: string
+
+      - name: approved_date
+        sql: approved_date
+        type: string
+
+      - name: data_synced_date
+        sql: data_synced_date
+        type: string
+
+      - name: status
+        sql: status
+        type: string
+
+      - name: fonepay_pan_number
+        sql: fonepay_pan_number
+        type: string
+
+      - name: email
+        sql: email
+        type: string
+
+      - name: stage
+        sql: stage
+        type: string
+
+      - name: is_default
+        sql: is_default
+        type: string
+
+      - name: sub_merchant_sk
+        sql: sub_merchant_sk
+        type: string
+
+      - name: sub_merchant_id
+        sql: sub_merchant_id
+        type: string
+
+      - name: source_file_path
+        sql: source_file_path
+        type: string
+
+      - name: cif_id
+        sql: cif_id
+        type: string
+
+      - name: cif_sk
+        sql: cif_sk
+        type: string
+
+      - name: dbt_scd_id
+        sql: dbt_scd_id
+        type: string
+
+      - name: dbt_updated_at
+        sql: dbt_updated_at
+        type: string
+
+      - name: dbt_valid_from
+        sql: dbt_valid_from
+        type: string
+
+      - name: dbt_valid_to
+        sql: dbt_valid_to
+        type: string
+
+      - name: updated_at
+        sql: updated_at
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started

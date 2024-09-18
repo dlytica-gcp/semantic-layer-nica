@@ -1,0 +1,72 @@
+cubes:
+  - name: dim_lien
+    sql_table: gold_dimensions.dim_lien
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: lien_sk
+        sql: lien_sk
+        type: string
+
+      - name: lien_id
+        sql: lien_id
+        type: string
+
+      - name: acid_sk
+        sql: acid_sk
+        type: string
+
+      - name: acid
+        sql: acid
+        type: string
+
+      - name: foracid
+        sql: foracid
+        type: string
+
+      - name: lien_start_date
+        sql: lien_start_date
+        type: string
+
+      - name: lien_expiry_date
+        sql: lien_expiry_date
+        type: string
+
+      - name: lien_reason_code
+        sql: lien_reason_code
+        type: string
+
+      - name: lien_remarks
+        sql: lien_remarks
+        type: string
+
+      - name: lchg_time
+        sql: lchg_time
+        type: string
+
+      - name: dbt_scd_id
+        sql: dbt_scd_id
+        type: string
+
+      - name: dbt_updated_at
+        sql: dbt_updated_at
+        type: time
+
+      - name: dbt_valid_from
+        sql: dbt_valid_from
+        type: time
+
+      - name: dbt_valid_to
+        sql: dbt_valid_to
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

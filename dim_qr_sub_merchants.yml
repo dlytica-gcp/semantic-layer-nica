@@ -1,0 +1,99 @@
+cubes:
+  - name: dim_qr_sub_merchants
+    sql_table: gold_dimensions.dim_qr_sub_merchants
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: sub_merchant_sk
+        sql: sub_merchant_sk
+        type: string
+
+      - name: sub_merchant_id
+        sql: sub_merchant_id
+        type: string
+
+      - name: sub_merchant_name
+        sql: sub_merchant_name
+        type: string
+
+      - name: merchant_sk
+        sql: merchant_sk
+        type: string
+
+      - name: created_date
+        sql: created_date
+        type: string
+
+      - name: create_approve_date
+        sql: create_approve_date
+        type: string
+
+      - name: data_synced_date
+        sql: data_synced_date
+        type: string
+
+      - name: stage
+        sql: stage
+        type: string
+
+      - name: status
+        sql: status
+        type: string
+
+      - name: source_file_path
+        sql: source_file_path
+        type: string
+
+      - name: address
+        sql: address
+        type: string
+
+      - name: location
+        sql: location
+        type: string
+
+      - name: is_default
+        sql: is_default
+        type: string
+
+      - name: pan_number
+        sql: pan_number
+        type: string
+
+      - name: cif_id
+        sql: cif_id
+        type: string
+
+      - name: cif_sk
+        sql: cif_sk
+        type: string
+
+      - name: dbt_scd_id
+        sql: dbt_scd_id
+        type: string
+
+      - name: dbt_updated_at
+        sql: dbt_updated_at
+        type: string
+
+      - name: dbt_valid_from
+        sql: dbt_valid_from
+        type: string
+
+      - name: dbt_valid_to
+        sql: dbt_valid_to
+        type: string
+
+      - name: updated_at
+        sql: updated_at
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started

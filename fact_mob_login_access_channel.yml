@@ -1,0 +1,52 @@
+cubes:
+  - name: fact_mob_login_access_channel
+    sql_table: gold_fact.fact_mob_login_access_channel
+    data_source: default
+
+    joins: 
+      - name: dim_date
+        sql: "{CUBE.added_date_sk}={dim_date.date_sk}"
+        relationship: one_to_one
+
+    dimensions:
+      - name: id
+        sql: id
+        type: number
+        primary_key: true
+
+      - name: login_access_sk
+        sql: login_access_sk
+        type: string
+
+      - name: customer_login_sk
+        sql: customer_login_sk
+        type: string
+
+      - name: added_date_sk
+        sql: added_date_sk
+        type: string
+
+      - name: cif_id
+        sql: cif_id
+        type: string
+
+      - name: added_date
+        sql: added_date
+        type: time
+      - name: year
+        sql: year
+        type: number
+      - name: month
+        sql: month
+        type: number
+      - name: request_attempt
+        sql: request_attempt
+        type: number
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started

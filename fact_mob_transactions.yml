@@ -1,0 +1,88 @@
+cubes:
+  - name: fact_mob_transactions
+    sql_table: gold_fact.fact_mob_transactions
+    data_source: default
+
+    joins: 
+      - name: dim_mob_logged_in_activity
+        sql: "{fact_mob_transactions}.id = {dim_mob_logged_in_activity.id}"
+        relationship: one_to_one
+      
+      - name: dim_mob_merchant
+        sql: "{fact_mob_transaction}.id = {dim_mob_merchant.id}"
+        relationship: one_to_one
+
+      - name: dim_mob_customers
+        sql: "{fact_mob_transactions}.id = {dim_mob_customers.id}"
+        relationship: one_to_one
+      - name: dim_date
+        sql: "{CUBE.tran_date_sk}={dim_date.date_sk}"
+        relationship: one_to_one
+    dimensions:
+      - name: id
+        sql: id
+        type: number
+        primary_key: true
+
+      - name: transaction_sk
+        sql: transaction_sk
+        type: string
+
+      - name: foracid_sk
+        sql: foracid_sk
+        type: string
+      - name: txn_amount
+        sql: txn_amount  
+        type: number
+      - name: request_info_sk
+        sql: request_info_sk
+        type: string
+
+      - name: merchant_name
+        sql: merchant_name
+        type: string
+      - name: txn_error_desc
+        sql: txn_error_desc
+        type: string
+      - name: txn_status
+        sql: txn_status
+        type: number     
+      - name: bank_account_sk
+        sql: bank_account_sk
+        type: string
+
+      - name: cif_id
+        sql: cif_id
+        type: string
+
+      - name: cif_sk
+        sql: cif_sk
+        type: string
+
+      - name: tran_date
+        sql: tran_date
+        type: time
+      - name: tran_date_sk        
+        sql: tran_date_sk
+        type: string
+
+      - name: txn_year
+        sql: EXTRACT(YEAR FROM {CUBE.tran_date})
+        type: number
+
+      - name: txn_month
+        sql: EXTRACT(MONTH FROM {CUBE.tran_date})
+        type: number
+
+    measures:
+      - name: count
+        type: count
+
+      - name: total_txn_amount
+        sql: txn_amount
+        type: sum
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

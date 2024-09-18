@@ -1,0 +1,64 @@
+cubes:
+  - name: dim_signatories
+    sql_table: gold_dimensions.dim_signatories
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: sig_sk
+        sql: sig_sk
+        type: string
+
+      - name: sig_id
+        sql: sig_id
+        type: string
+
+      - name: foracid_sk
+        sql: foracid_sk
+        type: string
+
+      - name: foracid
+        sql: foracid
+        type: string
+
+      - name: signatory_name
+        sql: signatory_name
+        type: string
+
+      - name: signatory_relationship_type
+        sql: signatory_relationship_type
+        type: string
+
+      - name: signatory_relationship_code
+        sql: signatory_relationship_code
+        type: string
+
+      - name: is_jointacholder
+        sql: is_jointacholder
+        type: string
+
+      - name: dbt_scd_id
+        sql: dbt_scd_id
+        type: string
+
+      - name: dbt_updated_at
+        sql: dbt_updated_at
+        type: time
+
+      - name: dbt_valid_from
+        sql: dbt_valid_from
+        type: time
+
+      - name: dbt_valid_to
+        sql: dbt_valid_to
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

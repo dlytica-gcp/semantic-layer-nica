@@ -1,0 +1,34 @@
+cubes:
+  - name: dim_cards_customer_cardholder
+    sql_table: gold_dimensions.dim_cards_customer_cardholder
+    data_source: default
+
+    joins:
+      - name: dim_branch
+        sql: ${dim_cards_customer_cardholder}.branch_sol_sk = ${dim_branch}.branch_sol_sk
+        relationship: one_to_one
+      
+
+
+    dimensions:
+      - name: customer_sk
+        sql: customer_sk
+        type: string
+        primaryKey: true
+
+      - name: branch_sol_sk
+        sql: branch_sol_sk
+        type: string
+
+      - name: cus_stat_date
+        sql: cus_stat_date
+        type: string
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

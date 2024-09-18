@@ -1,0 +1,36 @@
+cubes:
+  - name: individual_stat_graph
+    sql_table: gold_dimensions.individual_stat_graph
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: c_id
+        sql: c_id
+        type: string
+
+      - name: full_name
+        sql: full_name
+        type: string
+
+      - name: gender
+        sql: gender
+        type: string
+
+      - name: cust_dob
+        sql: cust_dob
+        type: string
+
+      - name: branch_description
+        sql: branch_description
+        type: string
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

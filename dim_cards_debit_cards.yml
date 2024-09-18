@@ -1,0 +1,195 @@
+cubes:
+  - name: dim_cards_debit_card
+    sql_table: gold_dimensions.dim_cards_debit_card
+    data_source: default
+
+    joins:
+      - name: dim_gam
+        relationship: one_to_one
+        sql: "{CUBE}.foracid_sk = {dim_gam.foracid_sk}"
+      - name: fact_cards_authorization
+        relationship: one_to_many
+        sql:  "{CUBE}.car_numb = {gold_fact.fact_cards_authorization.card_number}"
+      - name: dim_cards_account
+        sql: "{CUBE}.account_code_sk = {gold_dimensions.dim_cards_account.account_code_sk}"
+        relationship: one_to_one
+      - name: dim_product
+        sql: "{CUBE}.product_scheme_code_sk = {gold_dimensions.dim_product.product_scheme_code_sk}"
+        relationship: one_to_one
+
+    dimensions:
+      - name: card_sk
+        sql: card_sk
+        type: string
+        primaryKey: true
+
+      - name: foracid_sk
+        sql: foracid_sk
+        type: string
+
+      - name: foracid
+        sql: foracid
+        type: string
+
+      - name: acc_numb
+        sql: acc_numb
+        type: string
+
+      - name: cif_id
+        sql: cif_id
+        type: string
+
+      - name: account_code_sk
+        sql: account_code_sk
+        type: string
+
+      - name: car_numb
+        sql: car_numb
+        type: string
+
+      - name: product_scheme_code_sk
+        sql: product_scheme_code_sk
+        type: string
+
+      - name: car_firs_crea_date
+        sql: car_firs_crea_date
+        type: string
+
+      - name: cif_sk
+        sql: cif_sk
+        type: string
+
+      - name: activation_date
+        sql: activation_date
+        type: string
+
+      - name: card_status
+        sql: card_status
+        type: string
+
+      - name: car_prep_date
+        sql: car_prep_date_date_part
+        type: time
+
+      - name: first_transaction_date
+        sql: first_transaction_date
+        type: time
+
+      - name: card_registration_from_acc_opn_date
+        sql: day({CUBE}.car_firs_crea_date - {dim_gam.acct_opn_date_date_part})
+        type: number
+
+      - name: card_activation_from_reg_date
+        sql: day({CUBE}.activation_date - {CUBE}.car_firs_crea_date)
+        type: number
+
+      - name: cardtxn_from_reg_date
+        sql: day({CUBE}.first_transaction_date - {CUBE}.activation_date)
+        type: number
+      - name: last_txn_date
+        sql: >
+          (
+            SELECT MAX(fact_cards_authorization.aut_tran_date)
+            FROM gold_fact.fact_cards_authorization fact_cards_authorization
+            WHERE fact_cards_authorization.AUT_PRIM_ACCT_NUMB_F002 = {CUBE}.car_numb
+          )
+        type: time
+      - name: last_ecom_txn_date
+        sql: >
+          (
+            SELECT MAX(fact_cards_authorization.aut_tran_date) FROM gold_fact.fact_cards_authorization fact_cards_authorization
+            WHERE fact_cards_authorization.AUT_PRIM_ACCT_NUMB_F002 = {CUBE}.car_numb AND  fact_cards_authorization.payment_channel='ECOM'
+          )
+        type: time
+      - name: total_ecom_transaction
+        sql: >
+          (
+            SELECT SUM(fact_cards_authorization.tran_amt) FROM gold_fact.fact_cards_authorization fact_cards_authorization
+            WHERE fact_cards_authorization.AUT_PRIM_ACCT_NUMB_F002 = {CUBE}.car_numb AND  fact_cards_authorization.payment_channel='POS'
+          )
+        type: number
+      - name: last_pos_txn_date
+        sql: >
+          (
+            SELECT MAX(fact_cards_authorization.aut_tran_date) FROM gold_fact.fact_cards_authorization fact_cards_authorization
+            WHERE fact_cards_authorization.AUT_PRIM_ACCT_NUMB_F002 = {CUBE}.car_numb AND  fact_cards_authorization.payment_channel='POS'
+
+          )
+        type: time
+      - name: total_pos_transaction
+        sql: >
+          (
+            SELECT SUM(fact_cards_authorization.tran_amt) FROM gold_fact.fact_cards_authorization fact_cards_authorization
+            WHERE fact_cards_authorization.AUT_PRIM_ACCT_NUMB_F002 = {CUBE}.car_numb AND  fact_cards_authorization.payment_channel='POS'
+          )
+        type: number
+      - name: total_atm_transaction
+        sql: >
+          (
+            SELECT SUM(fact_cards_authorization.tran_amt) FROM gold_fact.fact_cards_authorization fact_cards_authorization
+            WHERE fact_cards_authorization.AUT_PRIM_ACCT_NUMB_F002 = {CUBE}.car_numb AND  fact_cards_authorization.payment_channel='ATM'
+          )
+        type: number
+      - name: total_txn_amount
+        sql: >
+          (
+             SELECT SUM(fact_cards_authorization.tran_amt) FROM gold_fact.fact_cards_authorization fact_cards_authorization
+            WHERE fact_cards_authorization.AUT_PRIM_ACCT_NUMB_F002 = {CUBE}.car_numb
+          )
+
+        type: number  
+      - name: blocked_date
+        sql: >
+          (
+            SELECT MAX(B.csh_new_stat_effe_date) AS BLOCKED_DATE FROM gold_dimensions.dim_cards_CARD A INNER JOIN gold_dimensions.dim_cards_CARD_STATUS_HISTORY B ON A.card_sk=B.card_sk WHERE A.card_status='Blocked' AND A.CARD_SK={CUBE}.card_sk
+          )
+        type: time
+      - name: last_txn_since
+        sql: day(now() - {CUBE.last_txn_date})
+        type: number
+      - name: last_ecom_txn_since
+        sql: day(now() - {CUBE.last_ecom_txn_date})
+        type: number
+      - name: last_pos_txn_since
+        sql: day(now() - {CUBE.last_pos_txn_date})
+        type: number
+      - name: last_block_since
+        sql: day(now() - {CUBE.blocked_date})
+        type: number
+      
+    measures:
+      - name: total_active_card
+        sql: card_sk
+        type: count
+        filters:
+          - sql: "{CUBE}.card_status = 'Active'"
+      - name: total_cards
+        sql: card_sk
+        type: count
+      - name: total_inactive_cards
+        sql: card_sk
+        type: count
+        filters:
+          - sql: "{CUBE}.card_status != 'Active'"
+      - name: total_ecom_txn_amount
+        sql: "{CUBE.total_ecom_transaction}"
+        type: sum
+      - name: total_pos_txn_amount
+        sql: "{CUBE.total_pos_transaction}"
+        type: sum
+      - name: total_atm_txn_amount
+        sql: "{CUBE.total_atm_transaction}"
+        type: sum
+      - name: total_txn_amounts
+        sql: "{CUBE.total_txn_amount}"
+        type: sum
+
+      - name: last_created_date
+        sql: max(car_firs_crea_date)
+        type: time
+      
+    
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started

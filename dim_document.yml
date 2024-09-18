@@ -1,0 +1,73 @@
+cubes:
+  - name: dim_document
+    sql_table: gold_dimensions.dim_document
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: document_sk
+        sql: document_sk
+        type: string
+        primaryKey: true
+
+      - name: document_type
+        sql: document_type
+        type: string
+
+      - name: issued_by
+        sql: issued_by
+        type: string
+
+      - name: issued_date
+        sql: issued_date
+        type: string
+
+      - name: validity_date
+        sql: validity_date
+        type: string
+
+      - name: document_description
+        sql: document_description
+        type: string
+
+      - name: countryofissue
+        sql: countryofissue
+        type: string
+
+      - name: cif_sk
+        sql: cif_sk
+        type: string
+
+      - name: dbt_scd_id
+        sql: dbt_scd_id
+        type: string
+
+      - name: updated_at
+        sql: updated_at
+        type: time
+
+      - name: dbt_updated_at
+        sql: dbt_updated_at
+        type: time
+
+      - name: bodatemodified
+        sql: bodatemodified
+        type: time
+
+      - name: dbt_valid_from
+        sql: dbt_valid_from
+        type: time
+
+      - name: dbt_valid_to
+        sql: dbt_valid_to
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

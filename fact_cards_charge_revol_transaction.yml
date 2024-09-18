@@ -1,0 +1,71 @@
+cubes:
+  - name: fact_cards_charge_revol_transaction
+    sql_table: gold_fact.fact_cards_charge_revol_transaction
+    data_source: default
+
+    joins:
+      - name: dim_cards_account
+        sql: "{CUBE}.account_code_sk = {dim_cards_account.account_code_sk}"
+        relationship: one_to_one  
+      - name: dim_cards_card
+        sql: "{CUBE}.card_sk = {dim_cards_card.card_sk}"
+        relationship: one_to_one
+      - name: dim_date
+        sql: "{CUBE.date_sk}= {dim_date.date_sk}"
+        relationship: one_to_one
+
+
+      
+    dimensions:
+      - name: foracid_sk
+        sql: foracid_sk
+        type: string
+
+      - name: crt_code_sk
+        sql: crt_code_sk
+        type: string
+        primaryKey: true
+      - name: account_code_sk
+        sql: account_code_sk
+        type: string
+
+      - name: card_sk
+        sql: card_sk
+        type: string
+      - name: date_sk
+        sql: crt_stat_date_sk
+        type: string
+
+      - name: tco_code_sk
+        sql: tco_code_sk
+        type: string
+
+      - name: crt_tran_date
+        sql: crt_tran_date
+        type: string
+
+      - name: cif_id
+        sql: cif_id
+        type: string
+
+      - name: tran_amt
+        sql: exact_tran_amou
+        type: number
+
+      - name: tco_chld_sign
+        sql: tco_chld_sign
+        type: string
+      - name: tco_labe
+        sql: tco_labe
+        type: string
+      - name: crt_stat_date
+        sql: crt_stat_date
+        type: time
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

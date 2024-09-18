@@ -1,0 +1,74 @@
+cubes:
+  - name: dim_customer_legal_entity_details
+    sql_table: gold_dimensions.dim_customer_legal_entity_details
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: cif_sk
+        sql: cif_sk
+        type: string
+        primaryKey: true
+
+      - name: cif_id
+        sql: cif_id
+        type: string
+
+      - name: entity_registration_date
+        sql: from_iso8601_timestamp(entity_registration_date)
+        type: time
+
+      - name: registration_number
+        sql: registration_number
+        type: string
+
+      - name: type_of_entity
+        sql: type_of_entity
+        type: string
+
+      - name: group_name
+        sql: group_name
+        type: string
+
+      - name: corporate_name
+        sql: corporate_name
+        type: string
+
+      - name: keycontact_personname
+        sql: keycontact_personname
+        type: string
+
+      - name: nature_of_business
+        sql: nature_of_business
+        type: string
+
+      - name: subsegment
+        sql: subsegment
+        type: string
+
+      - name: business_type
+        sql: business_type
+        type: string
+
+      - name: sector
+        sql: sector
+        type: string
+
+      - name: subsector
+        sql: subsector
+        type: string
+
+#derived
+      - name: days_since_entity_registration
+        type: number
+        sql: "day(now()-{CUBE.entity_registration_date})"
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

@@ -1,0 +1,72 @@
+cubes:
+  - name: dim_nominee
+    sql_table: gold_dimensions.dim_nominee
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: nominee_sk
+        sql: nominee_sk
+        type: string
+
+      - name: nominee_id
+        sql: nominee_id
+        type: string
+
+      - name: acid_sk
+        sql: acid_sk
+        type: string
+
+      - name: acid
+        sql: acid
+        type: string
+
+      - name: foracid
+        sql: foracid
+        type: string
+
+      - name: nominee_name
+        sql: nominee_name
+        type: string
+
+      - name: nominee_address
+        sql: nominee_address
+        type: string
+
+      - name: nominee_relationship_code
+        sql: nominee_relationship_code
+        type: string
+
+      - name: lchg_time
+        sql: lchg_time
+        type: string
+
+      - name: dbt_scd_id
+        sql: dbt_scd_id
+        type: string
+
+      - name: dbt_updated_at
+        sql: dbt_updated_at
+        type: time
+
+      - name: dbt_valid_from
+        sql: dbt_valid_from
+        type: time
+
+      - name: dbt_valid_to
+        sql: dbt_valid_to
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+      - name: nominee_amount
+        sql: nominee_amount
+        type: sum
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

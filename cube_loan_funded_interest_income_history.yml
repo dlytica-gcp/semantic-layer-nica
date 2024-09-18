@@ -1,0 +1,47 @@
+cubes:
+  - name: cube_loan_funded_interest_income_history
+    sql_table: gold_fact.fact_interest_income_history
+    data_source: default
+
+    joins:
+      - name: dim_date
+        sql: "{CUBE}.tran_date_sk = {dim_date.date_sk}"
+        relationship: many_to_one
+
+    dimensions:
+      - name: foracid_sk
+        sql: foracid_sk
+        type: string
+        primaryKey: true
+
+      - name: foracid
+        sql: foracid
+        type: string
+
+      - name: acid
+        sql: acid
+        type: string
+
+      - name: interest_income
+        sql: interest_income
+        type: number
+
+      - name: tran_date
+        sql: tran_date
+        type: time
+
+  
+    measures:
+      - name: count_customers
+        type: count
+        sql: cif_id
+
+      - name: total_interest_income
+        type: sum
+        sql: interest_income
+
+ 
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

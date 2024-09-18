@@ -1,0 +1,139 @@
+cubes:
+  - name: dim_non_funded_lc_issuance
+    sql_table: gold_dimensions.dim_non_funded_lc_issuance
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: sol_id
+        sql: sol_id
+        type: string
+
+      - name: branch_sol_sk
+        sql: branch_sol_sk
+        type: string
+
+      - name: lc_no
+        sql: lc_no
+        type: string
+
+      - name: date_opnd
+        sql: date_opnd
+        type: string
+
+      - name: expiry_date
+        sql: expiry_date
+        type: string
+
+      - name: actl_crncy_code
+        sql: actl_crncy_code
+        type: string
+
+      - name: issu_party_code
+        sql: issu_party_code
+        type: string
+
+      - name: cif_id
+        sql: cif_id
+        type: string
+
+      - name: cif_sk
+        sql: cif_sk
+        type: string
+
+      - name: applicant_name
+        sql: applicant_name
+        type: string
+
+      - name: shipment_terms
+        sql: shipment_terms
+        type: string
+
+      - name: place_of_expiry
+        sql: place_of_expiry
+        type: string
+
+      - name: port_of_destin
+        sql: port_of_destin
+        type: string
+
+      - name: comm_details_text_1
+        sql: comm_details_text_1
+        type: string
+
+      - name: comm_details_text_2
+        sql: comm_details_text_2
+        type: string
+
+      - name: confirmation_reqd_flg
+        sql: confirmation_reqd_flg
+        type: string
+
+      - name: func_code
+        sql: func_code
+        type: string
+
+      - name: dc_reg_type
+        sql: dc_reg_type
+        type: string
+
+      - name: last_ship_date
+        sql: last_ship_date
+        type: string
+
+      - name: ra_unit
+        sql: ra_unit
+        type: string
+
+      - name: rm_code
+        sql: rm_code
+        type: string
+
+      - name: beneficiary
+        sql: beneficiary
+        type: string
+
+      - name: ben_address
+        sql: ben_address
+        type: string
+
+      - name: bank
+        sql: bank
+        type: string
+
+      - name: bank_branch
+        sql: bank_branch
+        type: string
+
+      - name: lc_value
+        sql: lc_value
+        type: number
+
+      - name: effective_value
+        sql: effective_value
+        type: number
+
+      - name: outstanding_value
+        sql: outstanding_value
+        type: number
+
+    measures:
+      - name: count
+        type: count
+
+      - name: lc_value_sum
+        sql: lc_value
+        type: sum
+
+      - name: effective_value_sum
+        sql: effective_value
+        type: sum
+
+      - name: outstanding_value_sum
+        sql: outstanding_value
+        type: sum
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started

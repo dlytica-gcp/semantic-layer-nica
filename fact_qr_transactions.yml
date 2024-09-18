@@ -1,0 +1,60 @@
+cubes:
+  - name: fact_qr_transactions
+    sql_table: gold_dimensions.fact_qr_transactions
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: transaction_sk
+        sql: transaction_sk
+        type: string
+
+      - name: merchant_sk
+        sql: merchant_sk
+        type: string
+
+      - name: submerchant_details_name
+        sql: submerchant_details_name
+        type: string
+
+      - name: terminal_sk
+        sql: terminal_sk
+        type: string
+
+      - name: settlement_date
+        sql: settlement_date
+        type: string
+
+      - name: foracid_sk
+        sql: foracid_sk
+        type: string
+
+      - name: settlement_status
+        sql: settlement_status
+        type: string
+
+      - name: acquirer_name
+        sql: acquirer_name
+        type: string
+
+      - name: payment_status
+        sql: payment_status
+        type: string
+
+      - name: settlement_date_only
+        sql: settlement_date_only
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+      - name: original_txn_amount
+        sql: original_txn_amount
+        type: sum
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

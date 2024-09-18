@@ -1,0 +1,56 @@
+cubes:
+  - name: dim_account_status
+    sql_table: gold_dimensions.dim_account_status
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: acct_status_sk
+        sql: acct_status_sk
+        type: string
+
+      - name: acct_status_id
+        sql: acct_status_id
+        type: string
+
+      - name: foracid_sk
+        sql: foracid_sk
+        type: string
+
+      - name: account_status
+        sql: account_status
+        type: string
+
+      - name: account_status_date
+        sql: account_status_date
+        type: string
+
+      - name: dbt_scd_id
+        sql: dbt_scd_id
+        type: string
+
+      - name: dbt_updated_at
+        sql: dbt_updated_at
+        type: time
+
+      - name: lchg_time
+        sql: lchg_time
+        type: time
+
+      - name: dbt_valid_from
+        sql: dbt_valid_from
+        type: time
+
+      - name: dbt_valid_to
+        sql: dbt_valid_to
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+
