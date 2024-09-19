@@ -7,12 +7,12 @@ cubes:
       - name: dim_product
         sql:  "{dim_gam}.product_scheme_code_sk = {dim_product.product_scheme_code_sk}"
         relationship: one_to_many
-      - name: dim_deposit_accounts
-        sql:  "{dim_gam}.foracid_sk = {dim_deposit_accounts.foracid_sk}"
-        relationship: one_to_one
-      - name: dim_loan_accounts_funded
-        sql:  "{dim_gam}.foracid_sk = {dim_loan_accounts_funded.foracid_sk}"
-        relationship: one_to_one
+      # - name: dim_deposit_accounts
+      #   sql:  "{dim_gam}.foracid_sk = {dim_deposit_accounts.foracid_sk}"
+      #   relationship: one_to_one
+      # - name: dim_loan_accounts_funded
+      #   sql:  "{dim_gam}.foracid_sk = {dim_loan_accounts_funded.foracid_sk}"
+      #   relationship: one_to_one
       - name: dim_branch
         sql:  "{dim_gam}.branch_sol_sk = {dim_branch.branch_sol_sk}"
         relationship: one_to_one

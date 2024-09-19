@@ -3,7 +3,10 @@ cubes:
     sql_table: gold_dimensions.dim_deposit_accounts
     data_source: default
 
-    joins: []
+    joins:
+      - name: dim_gam
+        sql: "{dim_deposit_accounts}.foracid_sk = {dim_gam.foracid_sk}"
+        relationship: one_to_one
 
     dimensions:
       - name: foracid_sk
