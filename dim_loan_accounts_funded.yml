@@ -43,15 +43,15 @@ cubes:
         type: time
 
       - name: next_interest_demand_date
-        sql: from_iso8601_timestamp(next_interest_demand_date)
+        sql: next_interest_demand_date
         type: time
 
       - name: next_principal_demand_date
-        sql: from_iso8601_timestamp(next_principal_demand_date)
+        sql: next_principal_demand_date
         type: time
 
       - name: first_overdue_loan_date
-        sql: from_iso8601_timestamp(first_overdue_loan_date)
+        sql: first_overdue_loan_date
         type: time
 
       - name: multi_banking_code
