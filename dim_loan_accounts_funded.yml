@@ -7,6 +7,9 @@ cubes:
       - name: dim_gam
         sql:  "{dim_loan_accounts_funded}.foracid_sk = {dim_gam.foracid_sk}"
         relationship: one_to_one
+      - name: dim_product
+        sql:  "{dim_gam}.product_scheme_code_sk = {dim_product.product_scheme_code_sk}"
+        relationship: one_to_many
 
     dimensions:
       - name: foracid_sk
