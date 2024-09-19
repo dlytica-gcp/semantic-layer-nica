@@ -82,6 +82,10 @@ cubes:
         sql: accrued_interest
         type: string
 
+      - name: overdue_amount
+        sql: overdue_amt
+        type: number
+
       - name: currency
         sql: currency
         type: string
