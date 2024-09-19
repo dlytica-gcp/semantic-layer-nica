@@ -126,6 +126,10 @@ cubes:
         sql: drwng_power
         type: number
 
+      - name: operative_account
+        sql: operative_account
+        type: number
+
 # derived
       - name: days_between_account_opening_and_loan_sanction
         type: number
