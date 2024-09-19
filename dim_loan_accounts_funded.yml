@@ -163,8 +163,21 @@ cubes:
         sql: "day(now()-{CUBE.first_overdue_loan_date})"
       
     measures:
-      - name: count
+      - name: total_number_of_funded_loans
         type: count
+        sql: cif_id
+
+      - name: total_sanction_limit
+        type: sum
+        sql: sanction_limit
+
+      - name: total_outdrawing_power
+        type: sum
+        sql: drwng_power
+
+      - name: total_overdue_amount
+        type: sum
+        sql: overdue_amt
 
     pre_aggregations:
       # Pre-aggregation definitions go here.
