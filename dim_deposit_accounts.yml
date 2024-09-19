@@ -21,6 +21,10 @@ cubes:
         sql: foracid
         type: string
 
+      - name: cif_id
+        sql: "{dim_gam.cif_id}"
+        type: string
+
       - name: dormant_status
         sql: dormant_status
         type: string
@@ -81,13 +85,10 @@ cubes:
       - name: count
         type: count
 
-      - name: minimum_balance_total
-        sql: minimum_balance
+      - name: total_deposit
+        sql: "{dim_gam.account_balance}"
         type: sum
 
-      - name: available_amount_total
-        sql: available_amount
-        type: sum
 
     pre_aggregations:
       # Pre-aggregation definitions go here.
