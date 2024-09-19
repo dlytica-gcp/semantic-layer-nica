@@ -66,15 +66,15 @@ cubes:
         sql: sub_sector_code
         type: string
 
-      - name: group_name
+      - name: customer_group
         sql: group_name
         type: string
 
-      - name: groupid_code
+      - name: group_code
         sql: groupid_code
         type: string
 
-      - name: categoryid
+      - name: group_id
         sql: categoryid
         type: string
 
