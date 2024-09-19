@@ -53,6 +53,14 @@ cubes:
         sql: acct_opn_date
         type: string
 
+      - name: account_balance
+        sql: account_balance
+        type: number
+
+      - name: interest_rate
+        sql: interest_rate
+        type: number
+
       - name: last_transaction_date
         sql: from_iso8601_timestamp(last_transaction_date)
         type: time
