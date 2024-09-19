@@ -78,6 +78,10 @@ cubes:
         sql: categoryid
         type: string
 
+      - name: accrued_interest
+        sql: accrued_interest
+        type: string
+
       - name: currency
         sql: currency
         type: string
