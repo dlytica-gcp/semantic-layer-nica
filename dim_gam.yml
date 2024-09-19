@@ -137,6 +137,10 @@ cubes:
         sql: schm_type
         type: string
 
+      - name: gl_sub_head_code
+        sql: gl_sub_head_code
+        type: string
+
       - name: dbt_updated_at
         sql: dbt_updated_at
         type: time
