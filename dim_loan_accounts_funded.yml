@@ -67,15 +67,15 @@ cubes:
         type: string
 
       - name: customer_group
-        sql: group_name
+        sql: customer_group
         type: string
 
       - name: group_code
-        sql: groupid_code
+        sql: group_code
         type: string
 
       - name: group_id
-        sql: categoryid
+        sql: group_id
         type: string
 
       - name: accrued_interest
