@@ -178,6 +178,10 @@ cubes:
       - name: total_overdue_amount
         type: sum
         sql: overdue_amt
+      
+      - name: first_overdue_date
+        type: min
+        sql: first_overdue_loan_date
 
     pre_aggregations:
       # Pre-aggregation definitions go here.
