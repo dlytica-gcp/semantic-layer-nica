@@ -165,7 +165,7 @@ cubes:
     measures:
       - name: total_number_of_funded_loans
         type: count
-        sql: "{dim_gam}.cif_id"
+        sql: "{CUBE.cif_id}"
 
       - name: total_sanction_limit
         type: sum
