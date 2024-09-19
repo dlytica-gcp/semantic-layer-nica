@@ -3,7 +3,10 @@ cubes:
     sql_table: gold_dimensions.dim_product
     data_source: default
 
-    joins: []
+    joins:
+      - name: dim_gam
+        sql:  "{dim_product}.product_scheme_code_sk = {dim_gam.product_scheme_code_sk}"
+        relationship: many_to_one
 
     dimensions:
       - name: product_scheme_code_sk

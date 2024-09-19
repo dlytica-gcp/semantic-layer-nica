@@ -4,9 +4,9 @@ cubes:
     data_source: default
 
     joins:
-      - name: dim_product
-        sql:  "{dim_gam}.product_scheme_code_sk = {dim_product.product_scheme_code_sk}"
-        relationship: one_to_many
+      # - name: dim_product
+      #   sql:  "{dim_gam}.product_scheme_code_sk = {dim_product.product_scheme_code_sk}"
+      #   relationship: one_to_many
       # - name: dim_deposit_accounts
       #   sql:  "{dim_gam}.foracid_sk = {dim_deposit_accounts.foracid_sk}"
       #   relationship: one_to_one
