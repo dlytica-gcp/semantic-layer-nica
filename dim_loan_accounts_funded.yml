@@ -42,6 +42,18 @@ cubes:
         sql: from_iso8601_timestamp(last_transaction_date)
         type: time
 
+      - name: next_interest_demand_date
+        sql: from_iso8601_timestamp(next_interest_demand_date)
+        type: time
+
+      - name: next_principal_demand_date
+        sql: from_iso8601_timestamp(next_principal_demand_date)
+        type: time
+
+      - name: first_overdue_loan_date
+        sql: from_iso8601_timestamp(first_overdue_loan_date)
+        type: time
+
       - name: multi_banking_code
         sql: multi_banking_code
         type: string
@@ -106,6 +118,22 @@ cubes:
       - name: limit_review_days_in
         type: number
         sql: "day(now()-{CUBE.limit_review_date})"
+
+      - name: next_interest_demand_in
+        type: number
+        sql: "day({CUBE.next_interest_demand_date} - now())"
+
+      - name: next_principal_demand_in
+        type: number
+        sql: "day({CUBE.next_principal_demand_date} - now())"
+
+      - name: days_since_first_overdue_loan_amount
+        type: number
+        sql: "day(now()-{CUBE.first_overdue_loan_date})"
+
+      - name: days_past_due
+        type: number
+        sql: "day(now()-{CUBE.first_overdue_loan_date})"
       
     measures:
       - name: count
