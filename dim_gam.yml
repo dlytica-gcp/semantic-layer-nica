@@ -61,6 +61,10 @@ cubes:
         sql: interest_rate
         type: number
 
+      - name: lien_amt
+        sql: lien_amt
+        type: number
+
       - name: last_transaction_date
         sql: from_iso8601_timestamp(last_transaction_date)
         type: time
