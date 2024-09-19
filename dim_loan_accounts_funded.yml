@@ -17,6 +17,10 @@ cubes:
         type: string
         primaryKey: true
 
+      - name: cif_id
+        sql: "${dim_gam}.cif_id"
+        type: string
+
       - name: foracid
         sql: foracid
         type: string
@@ -165,7 +169,7 @@ cubes:
     measures:
       - name: total_number_of_funded_loans
         type: count
-        sql: "{CUBE.cif_id}"
+        sql: "${CUBE.cif_id}"
 
       - name: total_sanction_limit
         type: sum
