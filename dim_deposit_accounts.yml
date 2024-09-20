@@ -85,17 +85,17 @@ cubes:
       - name: count
         type: count
 
-      # - name: total_deposit
-      #   sql: "{dim_gam.account_balance}"
-      #   type: sum
-
       - name: total_deposit
+        sql: "{dim_gam.account_balance}"
+        type: sum
+
+      - name: total_no_dr_transactions
         sql: >
           (
-            select sum(account_balance) from gold_dimensions.dim_gam a
-            where a.cif_id = {CUBE.cif_id}
+            select count(*) from gold_fact.fact_transaction_details a
+            where a.cif_id = {CUBE.cif_id} and part_tran_type='D'
           )
-        type: sum
+        type: count
         filters:
           - sql : "{CUBE.cif_id} is not null"
 
