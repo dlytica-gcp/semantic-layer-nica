@@ -85,9 +85,19 @@ cubes:
       - name: count
         type: count
 
+      # - name: total_deposit
+      #   sql: "{dim_gam.account_balance}"
+      #   type: sum
+
       - name: total_deposit
-        sql: "{dim_gam.account_balance}"
+        sql: >
+          (
+            select sum(account_balanace) from gold_dimensions.dim_gam a
+            where a.cif_id = {CUBE.cif_id}
+          )
         type: sum
+        filters:
+          - sql : "{CUBE.cif_id} is not null"
 
 
     pre_aggregations:

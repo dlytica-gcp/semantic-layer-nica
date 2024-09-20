@@ -170,6 +170,8 @@ cubes:
       - name: total_number_of_funded_loans
         type: count
         sql: "{CUBE.cif_id}"
+        filters:
+          - sql : "{CUBE.cif_id} is not null"
 
       - name: total_sanction_limit
         type: sum
