@@ -92,7 +92,7 @@ cubes:
       - name: total_deposit
         sql: >
           (
-            select sum(account_balanace) from gold_dimensions.dim_gam a
+            select sum(account_balance) from gold_dimensions.dim_gam a
             where a.cif_id = {CUBE.cif_id}
           )
         type: sum
