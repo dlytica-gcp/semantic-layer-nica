@@ -99,6 +99,35 @@ cubes:
         filters:
           - sql : "{CUBE.cif_id} is not null"
 
+      - name: total_no_cr_transactions
+        sql: >
+          (
+            select count(*) from gold_fact.fact_transaction_details a
+            where a.cif_id = {CUBE.cif_id} and part_tran_type='C'
+          )
+        type: count
+        filters:
+          - sql : "{CUBE.cif_id} is not null"
+
+      - name: total_dr_transactions_vol
+        sql: >
+          (
+            select case when del_flg='N' and part_tran_type='D' then (case when ref_crncy_code != 'NPR' then ref_amt else tran_amt end) else 0 end from gold_fact.fact_transaction_details a
+            where a.cif_id = {CUBE.cif_id}
+          )
+        type: sum
+        filters:
+          - sql : "{CUBE.cif_id} is not null"
+
+      - name: total_cr_transactions_vol
+        sql: >
+          (
+            select case when del_flg='N' and part_tran_type='C' then (case when ref_crncy_code != 'NPR' then ref_amt else tran_amt end) else 0 end from gold_fact.fact_transaction_details a
+            where a.cif_id = {CUBE.cif_id}
+          )
+        type: sum
+        filters:
+          - sql : "{CUBE.cif_id} is not null"
 
     pre_aggregations:
       # Pre-aggregation definitions go here.
