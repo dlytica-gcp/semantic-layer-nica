@@ -1,0 +1,169 @@
+cubes:
+  - name: ai360cdp
+    sql_table: gold_dimensions.dim_customers
+    data_source: default
+
+    joins:
+      - name: dim_customer_legal_entity_details
+        sql: "{dim_customers}.cif_sk = {dim_customer_legal_entity_details.cif_sk}"
+        relationship: one_to_one
+      
+      - name: dim_indiv_relationship
+        sql: "{dim_customers}.cif_sk = {dim_indiv_relationship.cif_sk}"
+        relationship: one_to_many
+      
+      - name: dim_communications
+        sql: "{dim_customers}.cif_sk = {dim_communications.cif_sk}"
+        relationship: one_to_many
+      
+      - name: dim_document
+        sql: "{dim_customers}.cif_sk = {dim_document.cif_sk}"
+        relationship: one_to_many
+
+      - name: dim_cust_address
+        sql: "{dim_customers}.cif_sk = {dim_cust_address.cif_sk}"
+        relationship: one_to_many
+      
+      - name: dim_gam
+        sql: "{dim_customers}.cif_sk = {dim_gam.cif_sk}"
+        relationship: one_to_many
+
+    dimensions:
+      - name: cif_sk
+        sql: cif_sk
+        type: string
+        primaryKey: true
+
+      - name: cust_first_name
+        sql: cust_first_name
+        type: string
+
+      - name: cust_middle_name
+        sql: cust_middle_name
+        type: string
+
+      - name: cust_last_name
+        sql: cust_last_name
+        type: string
+
+      - name: full_name
+        sql: full_name
+        type: string
+
+      - name: address_line
+        sql: address_line
+        type: string
+      - name: cust_type
+        sql: cust_type
+        type: string
+
+      - name: cust_dob
+        sql: from_iso8601_timestamp(cust_dob)
+        type: time
+
+      - name: gender
+        sql: gender
+        type: string
+
+      - name: employment_status
+        sql: employment_status
+        type: string
+
+
+
+      - name: nationality
+        sql: nationality
+        type: string
+
+      - name: occupation
+        sql: occupation
+        type: string
+
+      - name: cust_relationship_start_date
+        sql: from_iso8601_timestamp(cust_relationship_start_date)
+        type: time
+
+      - name: last_tran_date
+        sql: from_iso8601_timestamp(last_tran_date)
+        type: time
+
+      - name: last_kyc_review_date
+        sql: from_iso8601_timestamp(last_kyc_review_date)
+        type: time
+
+      
+
+      - name: education
+        sql: education
+        type: string
+
+      - name: rating
+        sql: rating
+        type: string
+
+      - name: constitution_code
+        sql: constitution_code
+        type: string
+
+      - name: constitution_code_desc
+        sql: constitution_code_desc
+        type: string
+
+      - name: segmentation_class
+        sql: segmentation_class
+        type: string
+
+      - name: introducerid
+        sql: introducerid
+        type: string
+      - name: card_holder
+        sql: card_holder
+        type: string
+
+      - name: cif_id
+        sql: cif_id
+        type: string
+        
+
+
+
+      - name: mobile_number
+        sql: mobile_number
+        type: string
+
+      - name: account_relationship_date
+        sql: from_iso8601_timestamp(account_relationship_date)
+        type: time
+
+ 
+
+   
+      # derived 
+      - name: age
+        sql: "(day(now()-{CUBE.cust_dob}))/365"
+        type: number
+
+      - name : days_since_last_transaction
+        type : number
+        sql : "day(now()-{CUBE.last_tran_date})"
+
+      - name : account_relationship_days
+        type : number
+        sql : "day(now()-{CUBE.account_relationship_date})"
+
+      - name : cust_relationship_start_days
+        type : number
+        sql : "day(now()-{CUBE.cust_relationship_start_date})"
+
+      - name : days_since_last_kyc_review
+        type : number
+        sql : "day(now()-{CUBE.last_kyc_review_date})"
+
+  
+    measures:
+      - name: count_customers
+        type: count
+        sql: cif_id
+
+ 
+    pre_aggregations:
