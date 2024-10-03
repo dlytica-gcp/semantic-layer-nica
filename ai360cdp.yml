@@ -1,10 +1,15 @@
 cubes:
-  - name: ai360cdp
+  - name: AI360CDP
     sql_table: gold_dimensions.dim_customers
     data_source: default
     segments:
       - name: young_customers
         sql: "{CUBE.age} >=18 AND {CUBE.age}<=25"
+      - name: adult_customers
+        sql: "{CUBE.age} >=26 AND {CUBE.age}<=40"
+      - name: old_customers
+        sql: "{CUBE.age} >40"
+
 
     joins:
       - name: dim_customer_legal_entity_details
