@@ -1,6 +1,6 @@
 cubes:
   - name: AI360CDP
-    sql_table: gold_dimensions.dim_customers
+    sql_table: demo_gold_dimensions.dim_customers
     data_source: default
     segments:
       - name: young_customers
@@ -91,9 +91,9 @@ cubes:
         sql: from_iso8601_timestamp(cust_relationship_start_date)
         type: time
 
-      - name: last_tran_date
-        sql: from_iso8601_timestamp(last_tran_date)
-        type: time
+      # - name: last_tran_date
+      #   sql: from_iso8601_timestamp(last_tran_date)
+      #   type: time
 
       - name: last_kyc_review_date
         sql: from_iso8601_timestamp(last_kyc_review_date)
