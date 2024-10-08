@@ -151,9 +151,9 @@ cubes:
         sql: "(day(now()-{CUBE.cust_dob}))/365"
         type: number
 
-      - name : days_since_last_transaction
-        type : number
-        sql : "day(now()-{CUBE.last_tran_date})"
+      # - name : days_since_last_transaction
+      #   type : number
+      #   sql : "day(now()-{CUBE.last_tran_date})"
 
       - name : account_relationship_days
         type : number
