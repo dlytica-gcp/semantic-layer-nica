@@ -180,6 +180,11 @@
 views:
   - name: ai360CDPView
     description: "AI360 CDP"
+    ####join cubes
+    cubes:
+      - join_path: AI360CDP
+        includes:
+          - "*"
     includes:
       - AI360CDP.count_customers
     dimensions:
