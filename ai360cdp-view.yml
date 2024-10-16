@@ -178,7 +178,7 @@
 
 
 views:
-  - name: ai360cdp-view
+  - name: ai360CDPView
     description: "AI360 CDP"
     includes:
       - AI360CDP.count_customers
