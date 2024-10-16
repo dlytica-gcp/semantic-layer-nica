@@ -181,7 +181,7 @@ views:
   - name: ai360cdp-view
     description: "AI360 CDP"
     includes:
-      - AI360CDP.count
+      - AI360CDP.count_customers
     dimensions:
       - name: cif_id
         sql: "{AI360CDP.cif_id}"
