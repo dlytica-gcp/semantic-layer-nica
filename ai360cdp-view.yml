@@ -193,5 +193,23 @@ views:
       - name: last_name
         sql: "{AI360CDP.cust_last_name}"
         type: string
+      - name: full_name
+        sql: "{AI360CDP.full_name}"
+        type: string
+      - name: address_line
+        sql: "{AI360CDP.address_line}"
+        type: string
+      - name: cust_type
+        sql: "{AI360CDP.cust_type}"
+        type: string
+      - name: dob
+        sql: "{AI360CDP.cust_dob}"
+        type: time
+      - name: gender
+        sql: "{AI360CDP.gender}"
+        type: string
+      - name: employment_status
+        sql: "{AI360CDP.employment_status}"
+        type: string
 
       
