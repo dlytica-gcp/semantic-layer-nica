@@ -1,14 +1,11 @@
-
-
 views:
   - name: ai360CDPView
     description: "AI360 CDP"
-    ####join cubes
     cubes:
       - join_path: AI360CDP
         includes:
           - "*"
-      - join_path: demo_gold_dimensions.dim_communications
+      - join_path: dim_communications
         includes:
           - "*"
     includes:
@@ -20,7 +17,6 @@ views:
       - name: first_name
         sql: "{AI360CDP.cust_first_name}"
         type: string
-
       - name: last_name
         sql: "{AI360CDP.cust_last_name}"
         type: string
@@ -49,7 +45,8 @@ views:
         sql: "{AI360CDP.occupation}"
         type: string
       - name: email
-        sql: "{demo_gold_dimensions.dim_communications.dim_communications.email}"
+        sql: "{AI360CDP.email}"
         type: string
-
-      
+      - name: phone
+        sql: "{AI360CDP.mobile_number}"
+        type: string

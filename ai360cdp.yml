@@ -12,29 +12,29 @@ cubes:
 
 
     joins:
-      - name: dim_customer_legal_entity_details
-        sql: "{dim_customers}.cif_sk = {dim_customer_legal_entity_details.cif_sk}"
-        relationship: one_to_one
+   #    - name: dim_customer_legal_entity_details
+   #      sql: "{dim_customers}.cif_sk = {dim_customer_legal_entity_details.cif_sk}"
+   #      relationship: one_to_one
       
-      - name: dim_indiv_relationship
-        sql: "{dim_customers}.cif_sk = {dim_indiv_relationship.cif_sk}"
-        relationship: one_to_many
+   #    - name: dim_indiv_relationship
+   #      sql: "{dim_customers}.cif_sk = {dim_indiv_relationship.cif_sk}"
+   #      relationship: one_to_many
       
       - name: dim_communications
-        sql: "{dim_customers}.cif_sk = {demo_gold_dimensions.dim_communications.cif_sk}"
+        sql: "{CUBE}.cif_sk = {dim_communications.cif_sk}"
         relationship: one_to_many
       
-      - name: dim_document
-        sql: "{dim_customers}.cif_sk = {dim_document.cif_sk}"
-        relationship: one_to_many
+   #    - name: dim_document
+   #      sql: "{dim_customers}.cif_sk = {dim_document.cif_sk}"
+   #      relationship: one_to_many
 
-      - name: dim_cust_address
-        sql: "{dim_customers}.cif_sk = {dim_cust_address.cif_sk}"
-        relationship: one_to_many
+   #    - name: dim_cust_address
+   #      sql: "{dim_customers}.cif_sk = {dim_cust_address.cif_sk}"
+   #      relationship: one_to_many
       
-      - name: dim_gam
-        sql: "{dim_customers}.cif_sk = {dim_gam.cif_sk}"
-        relationship: one_to_many
+   #    - name: dim_gam
+   #      sql: "{dim_customers}.cif_sk = {dim_gam.cif_sk}"
+   #      relationship: one_to_many
 
     dimensions:
       - name: cif_sk
@@ -131,12 +131,15 @@ cubes:
       - name: cif_id
         sql: cif_id
         type: string
+      - name: email
+        sql: email
+        type: string
         
 
 
 
       - name: mobile_number
-        sql: mobile_number
+        sql: phone
         type: string
 
       - name: account_relationship_date
