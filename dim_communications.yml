@@ -1,6 +1,6 @@
 cubes:
   - name: dim_communications
-    sql_table: gold_dimensions.dim_communications
+    sql_table: demo_gold_dimensions.dim_communications
     data_source: default
 
     joins: []
