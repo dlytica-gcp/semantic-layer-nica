@@ -8,6 +8,9 @@ views:
       - join_path: AI360CDP
         includes:
           - "*"
+      - join_path: dim_communications
+        includes:
+          - "*"
     includes:
       - AI360CDP.count_customers
     dimensions:
