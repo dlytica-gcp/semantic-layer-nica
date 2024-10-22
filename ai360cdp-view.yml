@@ -49,7 +49,7 @@ views:
         sql: "{AI360CDP.occupation}"
         type: string
       - name: email
-        sql: "{dim_communications.email}"
+        sql: "{demo_gold_dimensions.dim_communications.dim_communications.email}"
         type: string
 
       
