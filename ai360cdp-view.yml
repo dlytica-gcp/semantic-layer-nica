@@ -48,5 +48,8 @@ views:
       - name: occupation
         sql: "{AI360CDP.occupation}"
         type: string
+      - name: email
+        sql: "{dim_communications.email}"
+        type: string
 
       
