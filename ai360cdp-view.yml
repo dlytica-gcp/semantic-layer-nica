@@ -8,7 +8,7 @@ views:
       - join_path: AI360CDP
         includes:
           - "*"
-      - join_path: dim_communications
+      - join_path: demo_gold_dimensions.dim_communications
         includes:
           - "*"
     includes:
