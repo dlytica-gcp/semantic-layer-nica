@@ -23,9 +23,9 @@ views:
       - name: full_name
         sql: "{AI360CDP.full_name}"
         type: string
-      - name: address_line
-        sql: "{AI360CDP.address_line}"
-        type: string
+      # - name: address_line
+      #   sql: "{AI360CDP.address_line}"
+      #   type: string
       - name: cust_type
         sql: "{AI360CDP.cust_type}"
         type: string
