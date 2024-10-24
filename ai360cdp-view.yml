@@ -50,3 +50,6 @@ views:
       - name: phone
         sql: "{AI360CDP.mobile_number}"
         type: string
+      - name: count_customers
+        sql: "{AI360CDP.count_customers}"
+        type: number
