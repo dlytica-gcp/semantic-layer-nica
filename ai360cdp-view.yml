@@ -8,8 +8,8 @@ views:
       - join_path: dim_communications
         includes:
           - "*"
-    includes:
-      - AI360CDP.count_customers
+    # includes:
+    #   - AI360CDP.count_customers
     dimensions:
       - name: cif_id
         sql: "{AI360CDP.cif_id}"
