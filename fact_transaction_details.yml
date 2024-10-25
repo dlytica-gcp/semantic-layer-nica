@@ -4,17 +4,11 @@ cubes:
     data_source: default
 
     joins:
-      - name: dim_customers
-        sql:  "{fact_transaction_detailsv2}.cif_sk = {dim_customers.cif_sk} AND {dim_customers.dbt_valid_to} IS NULL"
-        relationship: one_to_many
-      - name:  dim_date
-        sql:   "{fact_transaction_detailsv2}.tran_date_sk = {dim_date.date_sk}"
+      - name: AI360CDP
+        sql:  "{CUBE}.cif_sk = {AI360CDP.cif_sk} AND {AI360CDP.dbt_valid_to} IS NULL"
         relationship: one_to_many
       - name: dim_gam
-        sql:  "{fact_transaction_detailsv2}.acid_sk = {dim_gam.acid_sk} AND {dim_gam.dbt_valid_to} IS NULL"
-        relationship: one_to_many
-      - name: dim_branch
-        sql:  "{fact_transaction_detailsv2}.branch_sol_sk = {dim_branch.branch_sol_sk}"
+        sql:  "{CUBE}.acid_sk = {dim_gam.acid_sk} AND {dim_gam.dbt_valid_to} IS NULL"
         relationship: one_to_many
      
     dimensions:
@@ -165,4 +159,3 @@ cubes:
     pre_aggregations:
       # Pre-aggregation definitions go here.
       # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
-

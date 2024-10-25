@@ -1,6 +1,6 @@
 cubes:
   - name: AI360CDP
-    sql_table: demo_gold_dimensions.dim_customers
+    sql_table: gold_dimensions.dim_customers
     data_source: default
     segments:
       - name: young_customers
@@ -76,6 +76,14 @@ cubes:
       - name: employment_status
         sql: employment_status
         type: string
+      - name: dbt_valid_from
+        sql: dbt_valid_from
+        type: time
+
+      - name: dbt_valid_to
+        sql: dbt_valid_to
+        type: time
+      
 
 
 

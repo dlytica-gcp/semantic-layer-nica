@@ -8,8 +8,13 @@ views:
       - join_path: dim_communications
         includes:
           - "*"
+      - join_path: fact_transaction_details
+        includes:
+          - "*"
     includes:
       - AI360CDP.count_customers
+      - dim_communications.count_communications
+      - fact_transaction_details.tran_count
     dimensions:
       - name: cif_id
         sql: "{AI360CDP.cif_id}"
@@ -23,9 +28,9 @@ views:
       - name: full_name
         sql: "{AI360CDP.full_name}"
         type: string
-      # - name: address_line
-      #   sql: "{AI360CDP.address_line}"
-      #   type: string
+      - name: address_line
+        sql: "{AI360CDP.address_line}"
+        type: string
       - name: cust_type
         sql: "{AI360CDP.cust_type}"
         type: string
@@ -44,9 +49,4 @@ views:
       - name: occupation
         sql: "{AI360CDP.occupation}"
         type: string
-      - name: email
-        sql: "{AI360CDP.email}"
-        type: string
-      - name: phone
-        sql: "{AI360CDP.mobile_number}"
-        type: string
+      
